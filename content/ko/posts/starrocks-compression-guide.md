@@ -4,7 +4,7 @@ date: 2026-02-23
 draft: false
 author: "Seungwoo Noh"
 categories: [StarRocks, Data Engineering]
-tags: [starracks, compression, optimization]
+tags: [starrocks, compression, optimization]
 ShowToc: true
 TocOpen: false
 summary: "StarRocks에서 압축 설정을 최적화하여 스토리지 비용을 절감하고 쿼리 성능을 향상시키는 방법을 실무 경험을 바탕으로 정리했습니다."
