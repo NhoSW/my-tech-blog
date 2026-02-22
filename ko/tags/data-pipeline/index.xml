@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>StarRocks on OTL - 데이터 엔지니어링</title>
-    <link>https://NhoSW.github.io/my-tech-blog/ko/categories/starrocks/</link>
-    <description>Recent content in StarRocks on OTL - 데이터 엔지니어링</description>
+    <title>Data-Pipeline on OTL - 데이터 엔지니어링</title>
+    <link>https://NhoSW.github.io/my-tech-blog/ko/tags/data-pipeline/</link>
+    <description>Recent content in Data-Pipeline on OTL - 데이터 엔지니어링</description>
     <generator>Hugo -- 0.156.0</generator>
     <language>ko</language>
     <lastBuildDate>Mon, 23 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://NhoSW.github.io/my-tech-blog/ko/categories/starrocks/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://NhoSW.github.io/my-tech-blog/ko/tags/data-pipeline/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>StarRocks 도입기: 실시간 OLAP으로 데이터 파이프라인을 혁신한 이야기</title>
       <link>https://NhoSW.github.io/my-tech-blog/ko/posts/starrocks-adoption-guide/</link>
       <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://NhoSW.github.io/my-tech-blog/ko/posts/starrocks-adoption-guide/</guid>
       <description>기존 Trino + Airflow 파이프라인의 5분 지연을 서브초 레이턴시로 개선한 StarRocks 도입 과정을 정리했습니다. 테이블 모델 선택, 데이터 수집, 성능 튜닝, 운영 노하우까지 실무에서 얻은 교훈을 공유합니다.</description>
-    </item>
-    <item>
-      <title>StarRocks 압축 설정 가이드: 성능과 스토리지 최적화</title>
-      <link>https://NhoSW.github.io/my-tech-blog/ko/posts/starracks-compression-guide/</link>
-      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/ko/posts/starracks-compression-guide/</guid>
-      <description>StarRocks에서 압축 설정을 최적화하여 스토리지 비용을 절감하고 쿼리 성능을 향상시키는 방법을 실무 경험을 바탕으로 정리했습니다.</description>
     </item>
   </channel>
 </rss>

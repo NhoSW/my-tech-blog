@@ -31,6 +31,25 @@
                 href="https://NhoSW.github.io/my-tech-blog/ko/categories/data-engineering/"
                 />
   </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/data-pipeline/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/kafka/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/kafka/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/kafka/"
+                />
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/olap/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/optimization/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -57,10 +76,22 @@
                 href="https://NhoSW.github.io/my-tech-blog/ko/"
                 />
   </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/performance-tuning/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/real-time/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/starracks/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/starrocks/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/categories/starrocks/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/posts/starrocks-adoption-guide/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/posts/starracks-compression-guide/</loc>

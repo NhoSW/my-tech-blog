@@ -48,6 +48,16 @@
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/tags/kafka/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/kafka/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/kafka/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/posts/kafka-connect-troubleshooting-guide/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
