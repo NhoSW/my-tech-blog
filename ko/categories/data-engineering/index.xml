@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Starracks on OTL - Data Engineering</title>
-    <link>https://NhoSW.github.io/my-tech-blog/tags/starracks/</link>
-    <description>Recent content in Starracks on OTL - Data Engineering</description>
+    <title>Data Engineering on OTL - 데이터 엔지니어링</title>
+    <link>https://NhoSW.github.io/my-tech-blog/ko/categories/data-engineering/</link>
+    <description>Recent content in Data Engineering on OTL - 데이터 엔지니어링</description>
     <generator>Hugo -- 0.156.0</generator>
-    <language>en</language>
+    <language>ko</language>
     <lastBuildDate>Mon, 23 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://NhoSW.github.io/my-tech-blog/tags/starracks/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://NhoSW.github.io/my-tech-blog/ko/categories/data-engineering/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>StarRocks 압축 설정 가이드: 성능과 스토리지 최적화</title>
       <link>https://NhoSW.github.io/my-tech-blog/ko/posts/starracks-compression-guide/</link>

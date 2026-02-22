@@ -30,11 +30,18 @@
                 href="https://NhoSW.github.io/my-tech-blog/categories/"
                 />
   </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/tags/compression/</loc>
-    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/categories/data-engineering/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/categories/data-engineering/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/categories/data-engineering/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/tags/debugging/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
@@ -48,11 +55,18 @@
     <loc>https://NhoSW.github.io/my-tech-blog/tags/kafka-connect/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/ko/</loc>
-    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/tags/optimization/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/optimization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/optimization/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/tags/orchestration/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
@@ -82,15 +96,6 @@
     <loc>https://NhoSW.github.io/my-tech-blog/tags/sql/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/tags/starracks/</loc>
-    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/categories/starrocks/</loc>
-    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/ko/posts/starracks-compression-guide/</loc>
-    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/tags/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -117,15 +122,39 @@
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/about/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/about/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/archives/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/archives/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/archives/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/search/</loc>
-  </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/ko/search/</loc>
-  </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/ko/about/</loc>
-  </url><url>
-    <loc>https://NhoSW.github.io/my-tech-blog/ko/archives/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/search/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/search/"
+                />
   </url>
 </urlset>

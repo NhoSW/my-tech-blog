@@ -23,13 +23,6 @@
       <description>A practical guide to diagnosing and fixing common Kafka Connect issues. Covers connector failures, serialization errors, performance bottlenecks, and operational tips.</description>
     </item>
     <item>
-      <title>StarRocks 압축 설정 가이드: 성능과 스토리지 최적화</title>
-      <link>https://NhoSW.github.io/my-tech-blog/ko/posts/starracks-compression-guide/</link>
-      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/ko/posts/starracks-compression-guide/</guid>
-      <description>StarRocks에서 압축 설정을 최적화하여 스토리지 비용을 절감하고 쿼리 성능을 향상시키는 방법을 실무 경험을 바탕으로 정리했습니다.</description>
-    </item>
-    <item>
       <title>Trino Query Optimization: Practical Tips for Better Performance</title>
       <link>https://NhoSW.github.io/my-tech-blog/posts/trino-query-optimization-tips/</link>
       <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
@@ -42,13 +35,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://NhoSW.github.io/my-tech-blog/about/</guid>
       <description>About me and this blog</description>
-    </item>
-    <item>
-      <title>소개</title>
-      <link>https://NhoSW.github.io/my-tech-blog/ko/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/ko/about/</guid>
-      <description>블로그 소개</description>
     </item>
   </channel>
 </rss>
