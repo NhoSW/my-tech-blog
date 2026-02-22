@@ -19,6 +19,7 @@ languages:
   en:
     languageName: "English"
     weight: 1
+    contentDir: content/en
     title: "OTL - Data Engineering"
     params:
       homeInfoParams:
@@ -56,6 +57,7 @@ languages:
   ko:
     languageName: "한국어"
     weight: 2
+    contentDir: content/ko
     title: "OTL - 데이터 엔지니어링"
     params:
       homeInfoParams:
