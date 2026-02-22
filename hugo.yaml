@@ -127,6 +127,13 @@ params:
     - name: email
       url: "mailto:"
 
+  footer:
+    links:
+      - url: /privacy-policy/
+        text: Privacy Policy
+      - url: /ko/privacy-policy/
+        text: 개인정보처리방침
+
   editPost:
     URL: "https://github.com/NhoSW/my-tech-blog/tree/main/content"
     Text: "Suggest Changes"
