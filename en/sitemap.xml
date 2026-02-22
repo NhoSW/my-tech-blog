@@ -155,6 +155,18 @@
                 href="https://NhoSW.github.io/my-tech-blog/archives/"
                 />
   </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/privacy-policy/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/privacy-policy/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/privacy-policy/"
+                />
+  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/search/</loc>
     <xhtml:link
                 rel="alternate"

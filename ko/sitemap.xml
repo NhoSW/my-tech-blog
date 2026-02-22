@@ -107,6 +107,18 @@
                 href="https://NhoSW.github.io/my-tech-blog/ko/tags/"
                 />
   </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/privacy-policy/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/privacy-policy/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/privacy-policy/"
+                />
+  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/search/</loc>
     <xhtml:link
                 rel="alternate"
