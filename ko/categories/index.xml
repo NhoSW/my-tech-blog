@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Categories on OTL - 데이터 엔지니어링</title>
+    <link>https://NhoSW.github.io/my-tech-blog/ko/categories/</link>
+    <description>Recent content in Categories on OTL - 데이터 엔지니어링</description>
+    <generator>Hugo -- 0.156.0</generator>
+    <language>ko</language>
+    <atom:link href="https://NhoSW.github.io/my-tech-blog/ko/categories/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

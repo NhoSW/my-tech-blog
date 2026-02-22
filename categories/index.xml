@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Categories on OTL - Data Engineering</title>
+    <link>https://NhoSW.github.io/my-tech-blog/categories/</link>
+    <description>Recent content in Categories on OTL - Data Engineering</description>
+    <generator>Hugo -- 0.156.0</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 23 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://NhoSW.github.io/my-tech-blog/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Apache Airflow</title>
+      <link>https://NhoSW.github.io/my-tech-blog/categories/apache-airflow/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/categories/apache-airflow/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Apache Kafka</title>
+      <link>https://NhoSW.github.io/my-tech-blog/categories/apache-kafka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/categories/apache-kafka/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data Engineering</title>
+      <link>https://NhoSW.github.io/my-tech-blog/categories/data-engineering/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/categories/data-engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>StarRocks</title>
+      <link>https://NhoSW.github.io/my-tech-blog/categories/starrocks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/categories/starrocks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Trino</title>
+      <link>https://NhoSW.github.io/my-tech-blog/categories/trino/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/categories/trino/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

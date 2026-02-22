@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://NhoSW.github.io/my-tech-blog/sitemap.xml

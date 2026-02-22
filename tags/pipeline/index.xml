@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Pipeline on OTL - Data Engineering</title>
+    <link>https://NhoSW.github.io/my-tech-blog/tags/pipeline/</link>
+    <description>Recent content in Pipeline on OTL - Data Engineering</description>
+    <generator>Hugo -- 0.156.0</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 23 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://NhoSW.github.io/my-tech-blog/tags/pipeline/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building Reliable Data Pipelines with Apache Airflow: Lessons from Production</title>
+      <link>https://NhoSW.github.io/my-tech-blog/posts/building-data-pipeline-with-airflow/</link>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/posts/building-data-pipeline-with-airflow/</guid>
+      <description>Practical lessons from building and maintaining production Airflow DAGs. Covers DAG design patterns, error handling strategies, and operational best practices.</description>
+    </item>
+  </channel>
+</rss>
