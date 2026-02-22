@@ -1,0 +1,34 @@
+---
+title: "소개"
+layout: "single"
+url: "/ko/about/"
+summary: "블로그 소개"
+ShowToc: false
+---
+
+## 안녕하세요, 노승우입니다
+
+저는 안정적이고 확장 가능한 데이터 인프라와 파이프라인을 구축하는 데이터 엔지니어입니다. 대규모 데이터의 수집, 변환, 서빙 과정에서 발생하는 다양한 문제를 해결하는 일에 보람을 느끼고 있습니다.
+
+## 블로그 소개
+
+이 블로그는 실무에서 얻은 데이터 엔지니어링 지식을 공유하는 공간입니다. 실제 프로젝트에서 배운 교훈, 튜토리얼, 아키텍처 관련 의사결정, 그리고 데이터 분야에서 일하는 엔지니어분들께 도움이 될 만한 팁들을 다루고 있습니다.
+
+## 기술 스택
+
+현재 주로 사용하고 있는 기술들입니다:
+
+- **스트림 처리:** Apache Kafka
+- **워크플로 오케스트레이션:** Apache Airflow
+- **쿼리 엔진:** Trino, StarRocks
+- **컨테이너 오케스트레이션:** Kubernetes
+- **언어:** Python, SQL
+- **인프라:** Docker
+
+## 연락처
+
+- **GitHub:** [github.com/your-username](https://github.com/your-username)
+- **LinkedIn:** [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
+- **이메일:** your-email@example.com
+
+궁금한 점이나 제안 사항이 있으시면 편하게 연락 주세요!
