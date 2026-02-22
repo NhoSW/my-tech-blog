@@ -17,6 +17,16 @@
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/compression/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/compression/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/compression/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/categories/data-engineering/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
@@ -33,6 +43,16 @@
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/data-pipeline/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/data-pipeline/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/data-pipeline/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/kafka/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
@@ -49,6 +69,16 @@
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/olap/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/olap/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/olap/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/optimization/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
@@ -78,21 +108,94 @@
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/performance-tuning/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/performance-tuning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/performance-tuning/"
+                />
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/posts/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/posts/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/real-time/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/real-time/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/real-time/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/starrocks/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/tags/starrocks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/tags/starrocks/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/categories/starrocks/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/categories/starrocks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/categories/starrocks/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/posts/starrocks-adoption-guide/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/posts/starrocks-adoption-guide/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/posts/starrocks-adoption-guide/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/posts/starrocks-compression-guide/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://NhoSW.github.io/my-tech-blog/posts/starrocks-compression-guide/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ko"
+                href="https://NhoSW.github.io/my-tech-blog/ko/posts/starrocks-compression-guide/"
+                />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>

@@ -9,11 +9,11 @@
     <lastBuildDate>Mon, 23 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://NhoSW.github.io/my-tech-blog/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Kafka Connect Troubleshooting: Common Issues and Solutions</title>
-      <link>https://NhoSW.github.io/my-tech-blog/posts/kafka-connect-troubleshooting-guide/</link>
+      <title>StarRocks Adoption Story: Revolutionizing Data Pipelines with Real-time OLAP</title>
+      <link>https://NhoSW.github.io/my-tech-blog/posts/starrocks-adoption-guide/</link>
       <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/posts/kafka-connect-troubleshooting-guide/</guid>
-      <description>A practical guide to diagnosing and fixing common Kafka Connect issues. Covers connector failures, serialization errors, performance bottlenecks, and operational tips.</description>
+      <guid>https://NhoSW.github.io/my-tech-blog/posts/starrocks-adoption-guide/</guid>
+      <description>How we reduced pipeline latency from 5 minutes to sub-second by adopting StarRocks. Covers table model selection, data ingestion, performance tuning, and operational lessons from production.</description>
     </item>
   </channel>
 </rss>

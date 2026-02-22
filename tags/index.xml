@@ -9,24 +9,17 @@
     <lastBuildDate>Mon, 23 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://NhoSW.github.io/my-tech-blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Airflow</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/airflow/</link>
+      <title>Compression</title>
+      <link>https://NhoSW.github.io/my-tech-blog/tags/compression/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/airflow/</guid>
+      <guid>https://NhoSW.github.io/my-tech-blog/tags/compression/</guid>
       <description></description>
     </item>
     <item>
-      <title>Best-Practices</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/best-practices/</link>
+      <title>Data-Pipeline</title>
+      <link>https://NhoSW.github.io/my-tech-blog/tags/data-pipeline/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/best-practices/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Debugging</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/debugging/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/debugging/</guid>
+      <guid>https://NhoSW.github.io/my-tech-blog/tags/data-pipeline/</guid>
       <description></description>
     </item>
     <item>
@@ -37,10 +30,10 @@
       <description></description>
     </item>
     <item>
-      <title>Kafka-Connect</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/kafka-connect/</link>
+      <title>Olap</title>
+      <link>https://NhoSW.github.io/my-tech-blog/tags/olap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/kafka-connect/</guid>
+      <guid>https://NhoSW.github.io/my-tech-blog/tags/olap/</guid>
       <description></description>
     </item>
     <item>
@@ -51,45 +44,24 @@
       <description></description>
     </item>
     <item>
-      <title>Orchestration</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/orchestration/</link>
+      <title>Performance-Tuning</title>
+      <link>https://NhoSW.github.io/my-tech-blog/tags/performance-tuning/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/orchestration/</guid>
+      <guid>https://NhoSW.github.io/my-tech-blog/tags/performance-tuning/</guid>
       <description></description>
     </item>
     <item>
-      <title>Performance</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/performance/</link>
+      <title>Real-Time</title>
+      <link>https://NhoSW.github.io/my-tech-blog/tags/real-time/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/performance/</guid>
+      <guid>https://NhoSW.github.io/my-tech-blog/tags/real-time/</guid>
       <description></description>
     </item>
     <item>
-      <title>Pipeline</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/pipeline/</link>
+      <title>Starrocks</title>
+      <link>https://NhoSW.github.io/my-tech-blog/tags/starrocks/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/pipeline/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Sql</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/sql/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/sql/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Trino</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/trino/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/trino/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Troubleshooting</title>
-      <link>https://NhoSW.github.io/my-tech-blog/tags/troubleshooting/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://NhoSW.github.io/my-tech-blog/tags/troubleshooting/</guid>
+      <guid>https://NhoSW.github.io/my-tech-blog/tags/starrocks/</guid>
       <description></description>
     </item>
   </channel>
