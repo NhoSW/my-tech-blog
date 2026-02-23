@@ -72,6 +72,13 @@
       <description></description>
     </item>
     <item>
+      <title>Open-Source</title>
+      <link>https://NhoSW.github.io/my-tech-blog/ko/tags/open-source/</link>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/ko/tags/open-source/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Optimization</title>
       <link>https://NhoSW.github.io/my-tech-blog/ko/tags/optimization/</link>
       <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
@@ -93,6 +100,13 @@
       <description></description>
     </item>
     <item>
+      <title>Starburst</title>
+      <link>https://NhoSW.github.io/my-tech-blog/ko/tags/starburst/</link>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/ko/tags/starburst/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Starrocks</title>
       <link>https://NhoSW.github.io/my-tech-blog/ko/tags/starrocks/</link>
       <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
@@ -111,6 +125,13 @@
       <link>https://NhoSW.github.io/my-tech-blog/ko/tags/trino/</link>
       <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://NhoSW.github.io/my-tech-blog/ko/tags/trino/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vector-Store</title>
+      <link>https://NhoSW.github.io/my-tech-blog/ko/tags/vector-store/</link>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/ko/tags/vector-store/</guid>
       <description></description>
     </item>
   </channel>

@@ -15,5 +15,12 @@
       <guid>https://NhoSW.github.io/my-tech-blog/ko/posts/2026-data-engineering-trends/</guid>
       <description>Joe Reis의 1,101명 서베이를 기반으로 한 2026년 데이터 엔지니어링 트렌드를, 대규모 플랫폼 데이터 엔지니어링 팀의 현재 아키텍처와 대조하며 정리했습니다. 이미 잘 하고 있는 것과 앞으로 해야 할 것을 솔직하게 돌아봅니다.</description>
     </item>
+    <item>
+      <title>Starburst의 AI 피벗: Trino 오픈소스는 괜찮을까?</title>
+      <link>https://NhoSW.github.io/my-tech-blog/ko/posts/starburst-trino-ai-pivot/</link>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://NhoSW.github.io/my-tech-blog/ko/posts/starburst-trino-ai-pivot/</guid>
+      <description>Starburst가 쿼리 엔진 회사에서 AI 플랫폼 기업으로 전환하면서 Trino 오픈소스 릴리스가 63% 감소했다. Trino를 프로덕션에서 운영하는 팀의 관점에서, 이 변화가 의미하는 것과 앞으로의 전략을 정리한다.</description>
+    </item>
   </channel>
 </rss>
