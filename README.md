@@ -1,6 +1,6 @@
-# OTL - Data Engineering
+# nanta - Data Engineering
 
-A bilingual (English/Korean) tech blog focused on data engineering, authored by Seungwoo Noh.
+A bilingual (English/Korean) tech blog focused on data engineering.
 
 ## Tech Stack
 

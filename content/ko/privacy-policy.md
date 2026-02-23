@@ -7,7 +7,7 @@ showTableOfContents: false
 
 ## 운영자 정보
 
-본 블로그는 OTL이 운영하며, 사이트 주소는 https://nhosw.github.io/my-tech-blog/ 입니다.
+본 블로그는 nanta가 운영하며, 사이트 주소는 https://nhosw.github.io/my-tech-blog/ 입니다.
 
 ## 수집하는 정보
 

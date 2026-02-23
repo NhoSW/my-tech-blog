@@ -2,14 +2,14 @@ languageCode = "en"
 languageName = "English"
 weight = 1
 contentDir = "content/en"
-title = "OTL - Data Engineering"
+title = "nanta - Data Engineering"
 
 [params]
   displayName = "English"
   description = "Data Engineering blog - Apache Kafka, Airflow, Trino, StarRocks"
 
 [params.author]
-  name = "OTL"
+  name = "nanta"
   bio = "Data Engineering blog covering Apache Kafka, Airflow, Trino, StarRocks, and modern data infrastructure. Sharing practical lessons from production."
 
   links = [

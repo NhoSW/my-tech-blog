@@ -5,7 +5,7 @@ summary: "About me and this blog"
 showTableOfContents: false
 ---
 
-## Hi, I'm OTL
+## Hi, I'm nanta
 
 I'm a data engineer focused on building reliable, scalable data infrastructure and pipelines. I enjoy solving the challenges that come with moving, transforming, and serving data at scale.
 

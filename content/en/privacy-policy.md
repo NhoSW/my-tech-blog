@@ -7,7 +7,7 @@ showTableOfContents: false
 
 ## Who We Are
 
-This blog is operated by OTL. The site address is https://nhosw.github.io/my-tech-blog/.
+This blog is operated by nanta. The site address is https://nhosw.github.io/my-tech-blog/.
 
 ## What Data We Collect
 
