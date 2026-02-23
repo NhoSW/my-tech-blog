@@ -10,15 +10,15 @@ summary: "Four A100 GPUs can yield up to 28 independent GPU instances. This guid
 
 GPUs are expensive. A single A100 costs tens of thousands of dollars, yet most workloads don't use all 80GB of memory. Allocating an entire GPU for a simple Jupyter notebook experiment means 70GB sits idle.
 
-NVIDIA MIG (Multi-Instance GPU) solves this problem. It partitions a single physical GPU into up to 7 independent instances, allowing multiple workloads to run simultaneously. This post documents the process of setting up MIG on a 4× A100 environment and integrating it with Kubernetes.
+NVIDIA MIG (Multi-Instance GPU) fixes this. It splits a physical GPU into up to 7 independent instances so multiple workloads can share one card without stepping on each other. This post covers how we set up MIG on 4× A100s and wired it into Kubernetes.
 
 ---
 
 ## What Is MIG
 
-MIG splits a single physical GPU into multiple isolated GPU instances. Each instance has its own dedicated memory and compute units, so they don't interfere with each other. An OOM crash in one instance doesn't affect the others.
+MIG splits one physical GPU into several isolated instances. Each gets its own memory and compute units. They're fully independent — an OOM in one instance won't touch the others.
 
-Here are the partition options for the A100 80GB:
+For the A100 80GB, the partition options look like this:
 
 | Profile | Memory | SMs | Max Instances per GPU |
 |---------|--------|-----|----------------------|
@@ -27,11 +27,11 @@ Here are the partition options for the A100 80GB:
 | 3g.40gb | ~40GB | 42 | 2 |
 | 7g.80gb | ~80GB | 98 | 1 |
 
-With 7-way partitioning (1g.10gb), four GPUs yield 28 instances. That's a 4x+ improvement in GPU utilization by simple math.
+With 7-way partitioning (1g.10gb), four GPUs give you 28 instances. Simple math: 4x more GPU slots than before.
 
 ### Checking GPU Support
 
-**MIG is only supported on specific GPUs like the A100 and H100.** The A40 and V100 do not support MIG. We initially tried on an A40 server, confirmed it wasn't supported, and switched to A100.
+**MIG only works on certain GPUs.** A100 and H100 support it. A40 and V100 don't. We tried A40 first, hit the wall, and moved to A100.
 
 Check the `MIG M.` column in the `nvidia-smi` output:
 
@@ -46,7 +46,7 @@ Check the `MIG M.` column in the `nvidia-smi` output:
 | Enabled  |   ← Active
 ```
 
-See the [NVIDIA documentation](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#supported-gpus) for the full list of supported GPUs.
+The full list is in the [NVIDIA docs](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#supported-gpus).
 
 ---
 
@@ -54,7 +54,7 @@ See the [NVIDIA documentation](https://docs.nvidia.com/datacenter/tesla/mig-user
 
 ### Prerequisite: Disable nvidia-mig-manager
 
-Before enabling MIG, you must disable `nvidia-mig-manager.service`. This daemon resets MIG to disabled on every boot.
+Before anything else, disable `nvidia-mig-manager.service`. This daemon turns MIG off on every boot, which will undo your work.
 
 ```bash
 sudo systemctl disable nvidia-mig-manager.service
@@ -62,7 +62,7 @@ sudo systemctl disable nvidia-mig-manager.service
 
 ### Install mig-parted
 
-`nvidia-mig-parted` is NVIDIA's MIG configuration tool. You write a declarative config file and it applies the desired partition layout in one shot.
+`nvidia-mig-parted` is NVIDIA's tool for managing MIG configs. Write a YAML file describing what you want, run one command, done.
 
 ```bash
 # Install deb package (Ubuntu/Debian)
@@ -76,17 +76,17 @@ sudo dpkg -i nvidia-mig-manager_0.5.2-1_amd64.deb
 sudo nvidia-smi -mig 1
 ```
 
-This puts MIG mode in a pending state. A **reboot is required** to apply it.
+This puts MIG mode in pending. To actually apply it, you need a **reboot.**
 
 ```bash
 sudo reboot
 ```
 
-> **VM caveat:** Virtual machines using GPU passthrough do not support `nvidia-smi --gpu-reset`. You cannot enable MIG without a reboot, so bare-metal servers are strongly recommended. We had to migrate from VMs to bare metal because of this issue.
+> **VM caveat:** GPU passthrough VMs don't support `nvidia-smi --gpu-reset`. No reset means no MIG without a full reboot. We ended up moving from VMs to bare metal just for this.
 
 ### Writing config.yaml
 
-mig-parted uses a YAML file to declare partition configurations. You can define multiple presets in a single file and switch between them as needed.
+mig-parted uses YAML to declare partition configs. Put multiple presets in one file and switch between them whenever you want.
 
 ```yaml
 version: v1
@@ -146,7 +146,7 @@ mig-configs:
         "1g.10gb": 7
 ```
 
-The `custom-config` at the bottom is the key part — it mixes different profiles per GPU. Why this matters is explained later.
+The `custom-config` at the bottom is what matters most. It mixes different profiles per GPU. More on why later.
 
 ### Applying the Configuration
 
@@ -158,7 +158,7 @@ sudo nvidia-mig-parted apply -f ./config.yaml -c all-1g.10gb
 sudo nvidia-mig-parted apply -f ./config.yaml -c custom-config
 ```
 
-Add the `-d` flag for debug logs. After applying, verify the instances with `nvidia-smi -L`:
+Add `-d` for debug logs. Once it's done, check the result with `nvidia-smi -L`:
 
 ```
 GPU 0: NVIDIA A100-SXM4-80GB (UUID: GPU-xxxx)
@@ -174,7 +174,7 @@ GPU 1: NVIDIA A100-SXM4-80GB (UUID: GPU-xxxx)
 
 ### Persisting Across Reboots
 
-MIG configuration resets on reboot. Register a systemd service to reapply it automatically.
+MIG config resets on reboot. Fix this with a systemd service that reapplies it at boot.
 
 ```ini
 # /etc/systemd/system/nvidia-mig-config.service
@@ -200,19 +200,19 @@ sudo systemctl enable nvidia-mig-config.service
 
 ## Lessons Learned: Why Uniform Partitioning Falls Short
 
-Our first approach was simple: split all 4 GPUs into 1g.10gb × 7 for 28 total instances. Maximum concurrency — what could go wrong?
+We started simple. Split all 4 GPUs into 1g.10gb × 7, get 28 instances, let everyone share. What could go wrong?
 
-### Large Models Don't Fit in MIG Instances
+### Large Models Don't Fit
 
-Reality hit quickly. The recommendation team's models needed 30GB+ of GPU memory. A single MIG instance only had 10GB, so models failed to load with CUDA OOM errors.
+A lot, it turns out. The recommendation team's models needed 30GB+ of GPU memory. Each MIG instance only had 10GB. CUDA OOM. Models wouldn't even load.
 
-LLMs were even worse. Llama 2 7B couldn't load on a MIG device even with 4-bit quantization. The 13B model was out of the question.
+LLMs made it worse. Llama 2 7B failed on a MIG device even at 4-bit quantization. 13B? Not a chance.
 
-The conclusion was clear: **partition strategy must match the workload.**
+**Your partition strategy has to match your workloads.** There's no way around it.
 
 ### Per-GPU Custom Partitioning
 
-After analyzing team workloads, we settled on this configuration:
+We looked at what each team actually ran and landed on this:
 
 | GPU | Profile | Purpose |
 |-----|---------|---------|
@@ -221,19 +221,19 @@ After analyzing team workloads, we settled on this configuration:
 | GPU 2 | 2g.20gb × 3 + 1g.10gb × 1 | Small-to-mid experiments |
 | GPU 3 | 1g.10gb × 7 | Jupyter notebooks, light batch jobs |
 
-For large model training, you can also keep some GPUs with MIG disabled entirely. We ended up disabling MIG on some GPUs as LLM experimentation grew.
+If you need full GPU power for large model training, leave some GPUs with MIG off. We did exactly that as LLM experiments picked up.
 
-> **Note:** There are physical constraints when mixing MIG slices. Memory slices within a GPU are allocated left-to-right and cannot be shared vertically. Always check the supported combinations in the [NVIDIA documentation](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html).
+> **Watch out:** Mixing MIG slices has physical constraints. Memory is allocated left-to-right inside the GPU and can't be shared vertically across slices. Check the [NVIDIA docs](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html) for which combos actually work.
 
 ---
 
 ## Kubernetes Integration
 
-Using MIG instances in Kubernetes requires changes to the NVIDIA device plugin.
+To use MIG instances in Kubernetes, you need to reconfigure the NVIDIA device plugin.
 
-### Understanding MIG Strategies
+### MIG Strategies
 
-The device plugin supports three MIG strategies:
+The device plugin has three ways to expose MIG instances:
 
 | Strategy | Resource Name | Description |
 |----------|--------------|-------------|
@@ -241,9 +241,9 @@ The device plugin supports three MIG strategies:
 | single | `nvidia.com/gpu` | Auto-assigns MIG instances. Existing workloads work as-is |
 | mixed | `nvidia.com/mig-{profile}` | Exposes each MIG profile as a separate resource |
 
-The `single` strategy maps existing `nvidia.com/gpu: 1` requests to MIG instances without code changes. Convenient, but you can't control which instance size you get.
+`single` is convenient. Existing workloads requesting `nvidia.com/gpu: 1` get a MIG instance without any code changes. The downside: you can't pick the size.
 
-The `mixed` strategy lets you request specific profiles like `nvidia.com/mig-3g.40gb: 1`. This is the right choice when using different partitions per GPU.
+`mixed` gives you control. Request `nvidia.com/mig-3g.40gb: 1` and you get exactly that. If you're running different partitions per GPU, this is what you want.
 
 ### Updating the Device Plugin
 
@@ -260,7 +260,7 @@ helm upgrade -i nvdp nvdp/nvidia-device-plugin \
   -f ./values.yaml
 ```
 
-After applying, restart the nvidia-device-plugin pods to refresh node resources. Verify with `kubectl describe node`:
+Restart the nvidia-device-plugin pods after this. Then check `kubectl describe node` to see the new resources:
 
 ```
 Allocatable:
@@ -271,7 +271,7 @@ Allocatable:
 
 ### Using MIG in JupyterHub
 
-Update the JupyterHub profile to request MIG-typed resources:
+Switch the JupyterHub profile to request MIG resources instead of whole GPUs:
 
 ```yaml
 # Before (whole GPU allocation)
@@ -283,11 +283,11 @@ extra_resource_limits:
   nvidia.com/mig-1g.10gb: "1"
 ```
 
-Be careful: with the mixed strategy, requesting `nvidia.com/gpu: 1` allocates an entire physical GPU. You must specify the MIG profile name to get an instance.
+Heads up: with mixed strategy, `nvidia.com/gpu: 1` grabs an entire physical GPU. Always specify the MIG profile name.
 
-### Using MIG in Airflow KubernetesPodOperator
+### Airflow KubernetesPodOperator
 
-For GPU tasks in Airflow, update the resource requests to MIG types as well:
+Same idea for GPU tasks in Airflow. Swap the resource name:
 
 ```python
 resources = {
@@ -310,30 +310,30 @@ KubernetesPodOperator(
 
 ## Operational Tips
 
-### Timing MIG Reconfiguration
+### When to Reconfigure
 
-Changing MIG configuration requires terminating all processes on the affected GPUs. In production, schedule changes during idle windows. Our batch jobs started at 4 AM, so we ran MIG reconfiguration after 9 PM.
+Changing MIG config kills all processes on those GPUs. Pick a quiet time. Our batch jobs kicked off at 4 AM, so we did MIG changes after 9 PM.
 
-### MIG Must Be Enabled on All GPUs in a Server
+### All-or-Nothing Per Server
 
-You cannot enable MIG on some GPUs while leaving others disabled on the same server. **All GPUs must be either MIG-enabled or all MIG-disabled.** If you need a non-MIG GPU for large model training, either use a separate server or configure `7g.80gb: 1` in your MIG config to expose the full GPU as a single instance.
+You can't turn MIG on for some GPUs and leave it off for others on the same machine. **All GPUs must be MIG-enabled or all disabled.** Need a full GPU for large model training? Either use a different server or set `7g.80gb: 1` in your config to expose the whole GPU as one instance.
 
-### GPU Capacity Changes
+### Capacity Numbers Will Jump
 
-MIG dramatically changes your Kubernetes cluster's GPU capacity numbers. In our environment, 4 physical GPUs (capacity: 4) became 20+ instances after MIG. Adjust your monitoring and alerting thresholds accordingly.
+Your Kubernetes GPU capacity looks very different after MIG. We went from 4 GPUs to 20+ allocatable instances. Update your monitoring dashboards and alert thresholds or you'll get false alarms.
 
 ---
 
 ## Conclusion
 
-MIG is a great way to improve GPU utilization, but it's not a silver bullet. Here's what we learned:
+MIG works. It won't solve everything, but it makes expensive hardware go further. Here's what stuck with us:
 
-1. **Check GPU support first.** Only specific models like A100 and H100 support MIG. A40 and V100 do not.
-2. **Avoid VM environments.** GPU passthrough doesn't support GPU reset, making MIG activation painful. Bare metal is the way to go.
-3. **Start uniform, evolve to custom.** Analyze workloads and mix different profiles per GPU for practical results.
-4. **Large models don't fit in MIG.** LLMs and large recommendation models need full GPU memory. Keep some non-MIG GPUs available.
+1. **Check GPU support first.** A100 and H100 work. A40 and V100 don't. Save yourself the debugging.
+2. **Skip VMs.** GPU passthrough can't do GPU reset. Bare metal makes life easier.
+3. **Start uniform, go custom.** Begin with 7-way splits to get things running. Then tune per-GPU as you learn what your teams actually need.
+4. **Big models need big GPUs.** LLMs and large recommendation models won't fit in MIG slices. Keep some full GPUs around.
 
-GPUs are expensive, but slice them right and you can do a lot more with the hardware you already have.
+GPUs are expensive. Slice them well and you get a lot more out of what you already have.
 
 **References:**
 - [NVIDIA MIG User Guide](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html)
