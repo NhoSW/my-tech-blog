@@ -2,14 +2,10 @@
 title: "2026 데이터 엔지니어링 트렌드와 대규모 플랫폼의 현주소"
 date: 2026-02-23
 draft: false
-author: "Seungwoo Noh"
 categories: [Data Engineering]
 tags: [data-engineering, trends, iceberg, airflow, starrocks, trino, ai, lakehouse]
-ShowToc: true
-TocOpen: true
+showTableOfContents: true
 summary: "Joe Reis의 1,101명 서베이를 기반으로 한 2026년 데이터 엔지니어링 트렌드를, 대규모 플랫폼 데이터 엔지니어링 팀의 현재 아키텍처와 대조하며 정리했습니다. 이미 잘 하고 있는 것과 앞으로 해야 할 것을 솔직하게 돌아봅니다."
-cover:
-  image: ""
 ---
 
 [Joe Reis](https://joereis.substack.com/p/where-data-engineering-is-heading)가 1,101명의 데이터 실무자를 대상으로 진행한 서베이 결과를 기반으로 2026년 데이터 엔지니어링 트렌드를 발표했다. 대규모 플랫폼의 데이터 엔지니어링 팀을 이끌고 있는 입장에서, 이 트렌드를 우리 팀의 현재 아키텍처와 대조하며 이미 잘 하고 있는 것과 앞으로 해야 할 것을 정리해본다.
@@ -156,6 +152,6 @@ Joe Reis의 서베이에서 가장 인상적이었던 문장은 이것이다.
 
 하지만 기술적 우위만으로는 충분하지 않다. **데이터 변환 표준화, 시맨틱 레이어, 데이터 옵저버빌리티, AI 네이티브 워크플로우, 그리고 무엇보다 비즈니스 가치를 증명하는 리더십** — 이것이 2026년에 우리가 집중해야 할 방향이다.
 
-과거의 빚은 이자를 물고 있고, 페이데이가 다가오고 있다. 지금이 기반을 다질 때다.
+과거의 빚은 이자를 물고 있고, 페이데이가 다가오고 있다.
 
 **원문 참고**: [Where Data Engineering Is Heading in 2026 — Joe Reis](https://joereis.substack.com/p/where-data-engineering-is-heading)

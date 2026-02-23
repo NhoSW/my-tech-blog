@@ -2,14 +2,10 @@
 title: "StarRocks 압축 설정 가이드: 성능과 스토리지 최적화"
 date: 2026-02-23
 draft: false
-author: "Seungwoo Noh"
 categories: [StarRocks, Data Engineering]
 tags: [starrocks, compression, optimization]
-ShowToc: true
-TocOpen: false
+showTableOfContents: true
 summary: "StarRocks에서 압축 설정을 최적화하여 스토리지 비용을 절감하고 쿼리 성능을 향상시키는 방법을 실무 경험을 바탕으로 정리했습니다."
-cover:
-  image: ""
 ---
 
 ## 왜 압축 설정이 중요한가

@@ -1,14 +1,13 @@
 ---
 title: "개인정보처리방침"
-layout: "single"
-url: "/ko/privacy-policy/"
+layout: "simple"
 summary: "개인정보처리방침"
-ShowToc: false
+showTableOfContents: false
 ---
 
 ## 운영자 정보
 
-본 블로그는 노승우가 운영하며, 사이트 주소는 https://nhosw.github.io/my-tech-blog/ 입니다.
+본 블로그는 OTL이 운영하며, 사이트 주소는 https://nhosw.github.io/my-tech-blog/ 입니다.
 
 ## 수집하는 정보
 

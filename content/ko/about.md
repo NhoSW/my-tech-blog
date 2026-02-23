@@ -1,12 +1,11 @@
 ---
 title: "소개"
-layout: "single"
-url: "/ko/about/"
+layout: "simple"
 summary: "블로그 소개"
-ShowToc: false
+showTableOfContents: false
 ---
 
-## 안녕하세요, 노승우입니다
+## 안녕하세요, OTL입니다
 
 저는 안정적이고 확장 가능한 데이터 인프라와 파이프라인을 구축하는 데이터 엔지니어입니다. 대규모 데이터의 수집, 변환, 서빙 과정에서 발생하는 다양한 문제를 해결하는 일에 보람을 느끼고 있습니다.
 
@@ -27,8 +26,6 @@ ShowToc: false
 
 ## 연락처
 
-- **GitHub:** [github.com/your-username](https://github.com/your-username)
-- **LinkedIn:** [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
-- **이메일:** your-email@example.com
+- **이메일:** nanta0032@naver.com
 
 궁금한 점이나 제안 사항이 있으시면 편하게 연락 주세요!

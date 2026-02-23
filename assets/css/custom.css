@@ -1,0 +1,196 @@
+/* ============================================
+   Midnight Editorial — Custom Styles
+   ============================================ */
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6,
+.article-title {
+  font-family: 'Geist', system-ui, sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+body,
+p, li, td, th, blockquote, figcaption,
+.prose {
+  font-family: 'Geist', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+code, pre, .highlight {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.9em;
+}
+
+/* --- Page load animations --- */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+main {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+article header {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+article .prose {
+  animation: fadeIn 0.8s ease 0.25s both;
+}
+
+/* --- Card hover micro-interactions --- */
+.card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Article link cards */
+a[class*="card"],
+.article-link {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+a[class*="card"]:hover,
+.article-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Links --- */
+.prose a {
+  text-decoration: none;
+  background-image: linear-gradient(
+    rgb(var(--color-primary-500) / 0.3),
+    rgb(var(--color-primary-500) / 0.3)
+  );
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.3s ease;
+}
+
+.prose a:hover {
+  background-size: 100% 100%;
+  color: rgb(var(--color-neutral-900));
+}
+
+.dark .prose a:hover {
+  color: rgb(var(--color-neutral-50));
+}
+
+/* --- Blockquotes --- */
+blockquote {
+  border-left: 3px solid rgb(var(--color-secondary-500));
+  background: rgb(var(--color-neutral-800) / 0.3);
+  padding: 1rem 1.25rem;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+.dark blockquote {
+  background: rgb(var(--color-neutral-800) / 0.4);
+}
+
+/* --- Code blocks --- */
+.highlight pre {
+  border-radius: 10px;
+  border: 1px solid rgb(var(--color-neutral-700) / 0.3);
+}
+
+/* --- Tables --- */
+.prose table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.prose thead th {
+  background: rgb(var(--color-primary-800) / 0.15);
+  font-family: 'Geist', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.dark .prose thead th {
+  background: rgb(var(--color-primary-700) / 0.2);
+}
+
+/* --- Header --- */
+header.header {
+  backdrop-filter: blur(12px) saturate(1.5);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+}
+
+/* --- Scrollbar (Webkit) --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-neutral-600));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-primary-500));
+}
+
+/* --- Selection --- */
+::selection {
+  background: rgb(var(--color-primary-500) / 0.3);
+  color: inherit;
+}
+
+/* --- TOC refinement --- */
+#TableOfContents a {
+  transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+#TableOfContents a:hover {
+  color: rgb(var(--color-primary-400));
+  padding-left: 4px;
+}
+
+/* --- Taxonomy tags --- */
+a[href*="/tags/"],
+a[href*="/categories/"] {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+a[href*="/tags/"]:hover,
+a[href*="/categories/"]:hover {
+  transform: scale(1.05);
+}
+
+/* --- Footer --- */
+footer {
+  border-top: 1px solid rgb(var(--color-neutral-700) / 0.3);
+}
+
+/* --- Smooth scroll --- */
+html {
+  scroll-behavior: smooth;
+}

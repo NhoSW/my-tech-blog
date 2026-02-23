@@ -1,14 +1,13 @@
 ---
 title: "Privacy Policy"
-layout: "single"
-url: "/privacy-policy/"
+layout: "simple"
 summary: "Privacy Policy"
-ShowToc: false
+showTableOfContents: false
 ---
 
 ## Who We Are
 
-This blog is operated by Seungwoo Noh. The site address is https://nhosw.github.io/my-tech-blog/.
+This blog is operated by OTL. The site address is https://nhosw.github.io/my-tech-blog/.
 
 ## What Data We Collect
 

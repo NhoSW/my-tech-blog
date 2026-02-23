@@ -2,14 +2,10 @@
 title: "발리 리모트 근무 후기: 아이와 함께한 한 달, 솔직한 기록"
 date: 2026-02-23
 draft: false
-author: "Seungwoo Noh"
 categories: [Life]
 tags: [remote-work, workation, bali, digital-nomad, family]
-ShowToc: true
-TocOpen: true
+showTableOfContents: true
 summary: "서핑, 자연, 디지털 노마드의 성지 발리. 아이를 데리고 한 달간 리모트 근무를 했다. 기대했던 것과 실제 경험 사이의 간극을 솔직하게 기록한다."
-cover:
-  image: ""
 ---
 
 발리하면 떠오르는 이미지가 있다. 서핑, 열대 자연, 코워킹 스페이스에서 노트북을 펼친 디지털 노마드. 워케이션(workation)의 성지라는 수식어가 붙는 곳이다.

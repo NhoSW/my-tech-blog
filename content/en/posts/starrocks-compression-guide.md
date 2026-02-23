@@ -2,14 +2,10 @@
 title: "StarRocks Compression Guide: Optimizing Performance and Storage"
 date: 2026-02-23
 draft: false
-author: "Seungwoo Noh"
 categories: [StarRocks, Data Engineering]
 tags: [starrocks, compression, optimization]
-ShowToc: true
-TocOpen: false
+showTableOfContents: true
 summary: "A practical guide to optimizing compression settings in StarRocks. Covers algorithm comparison, per-workload recommendations, benchmark results, and operational tips from production experience."
-cover:
-  image: ""
 ---
 
 ## Why Compression Settings Matter

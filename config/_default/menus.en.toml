@@ -1,0 +1,29 @@
+[[main]]
+  identifier = "posts"
+  name = "Posts"
+  pageRef = "/posts"
+  weight = 1
+
+[[main]]
+  identifier = "categories"
+  name = "Categories"
+  pageRef = "/categories"
+  weight = 2
+
+[[main]]
+  identifier = "tags"
+  name = "Tags"
+  pageRef = "/tags"
+  weight = 3
+
+[[main]]
+  identifier = "about"
+  name = "About"
+  pageRef = "/about"
+  weight = 4
+
+[[footer]]
+  identifier = "privacy"
+  name = "Privacy Policy"
+  pageRef = "/privacy-policy"
+  weight = 1

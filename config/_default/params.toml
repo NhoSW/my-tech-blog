@@ -1,0 +1,44 @@
+colorScheme = "midnight"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
+
+enableSearch = true
+enableCodeCopy = true
+
+[header]
+  layout = "fixed"
+
+[footer]
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = false
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "profile"
+  showRecent = true
+  recentLimit = 5
+  cardView = true
+
+[article]
+  showTableOfContents = true
+  showReadingTime = true
+  showDate = true
+  showDateUpdated = false
+  showBreadcrumbs = true
+  showPagination = true
+  showWordCount = false
+  sharingLinks = ["x-twitter", "linkedin", "reddit", "email"]
+  editURL = "https://github.com/NhoSW/my-tech-blog/tree/main/content"
+  editAppendPath = true
+  heroStyle = "big"
+
+[list]
+  groupByYear = true
+  cardView = true
+  showBreadcrumbs = true
+
+[taxonomy]
+  showTermCount = true
+  cardView = false

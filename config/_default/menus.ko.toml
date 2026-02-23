@@ -1,0 +1,29 @@
+[[main]]
+  identifier = "posts"
+  name = "글 목록"
+  pageRef = "/posts"
+  weight = 1
+
+[[main]]
+  identifier = "categories"
+  name = "카테고리"
+  pageRef = "/categories"
+  weight = 2
+
+[[main]]
+  identifier = "tags"
+  name = "태그"
+  pageRef = "/tags"
+  weight = 3
+
+[[main]]
+  identifier = "about"
+  name = "소개"
+  pageRef = "/about"
+  weight = 4
+
+[[footer]]
+  identifier = "privacy"
+  name = "개인정보처리방침"
+  pageRef = "/privacy-policy"
+  weight = 1

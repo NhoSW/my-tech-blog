@@ -2,14 +2,10 @@
 title: "Starburst의 AI 피벗: Trino 오픈소스는 괜찮을까?"
 date: 2026-02-23
 draft: false
-author: "Seungwoo Noh"
 categories: [Data Engineering]
 tags: [trino, starburst, ai, open-source, lakehouse, iceberg, vector-store]
-ShowToc: true
-TocOpen: true
+showTableOfContents: true
 summary: "Starburst가 쿼리 엔진 회사에서 AI 플랫폼 기업으로 전환하면서 Trino 오픈소스 릴리스가 63% 감소했다. Trino를 프로덕션에서 운영하는 팀의 관점에서, 이 변화가 의미하는 것과 앞으로의 전략을 정리한다."
-cover:
-  image: ""
 ---
 
 Trino를 프로덕션 쿼리 엔진으로 운영하는 팀이라면, 2025년 한 해 동안 느꼈을 것이다. **릴리스가 뜸해졌다.** 감각의 문제가 아니라 숫자로 드러나는 변화다. 2024년 30개였던 Trino 오픈소스 릴리스가 2025년에는 11개로 줄었다. 63% 감소.

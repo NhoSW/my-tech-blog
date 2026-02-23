@@ -1,0 +1,16 @@
+baseURL = "https://NhoSW.github.io/my-tech-blog/"
+defaultContentLanguage = "en"
+theme = "blowfish"
+paginate = 10
+enableRobotsTXT = true
+enableEmoji = true
+buildFuture = true
+
+# googleAnalytics = "G-XXXXXXXXXX"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"

@@ -1,0 +1,17 @@
+languageCode = "ko"
+languageName = "한국어"
+weight = 2
+contentDir = "content/ko"
+title = "OTL - 데이터 엔지니어링"
+
+[params]
+  displayName = "한국어"
+  description = "데이터 엔지니어링 블로그 - Apache Kafka, Airflow, Trino, StarRocks"
+
+[params.author]
+  name = "OTL"
+  bio = "Apache Kafka, Airflow, Trino, StarRocks 등 데이터 엔지니어링과 모던 데이터 인프라에 대한 실무 경험을 공유하는 블로그입니다."
+
+  links = [
+    { github = "https://github.com/NhoSW" },
+  ]

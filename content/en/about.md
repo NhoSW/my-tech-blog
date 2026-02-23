@@ -1,12 +1,11 @@
 ---
 title: "About"
-layout: "single"
-url: "/about/"
+layout: "simple"
 summary: "About me and this blog"
-ShowToc: false
+showTableOfContents: false
 ---
 
-## Hi, I'm Seungwoo Noh
+## Hi, I'm OTL
 
 I'm a data engineer focused on building reliable, scalable data infrastructure and pipelines. I enjoy solving the challenges that come with moving, transforming, and serving data at scale.
 
@@ -27,8 +26,6 @@ Here are the core technologies I work with on a daily basis:
 
 ## Contact
 
-- **GitHub:** [github.com/your-username](https://github.com/your-username)
-- **LinkedIn:** [linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)
-- **Email:** your-email@example.com
+- **Email:** nanta0032@naver.com
 
 Feel free to reach out if you have questions, suggestions, or just want to connect!

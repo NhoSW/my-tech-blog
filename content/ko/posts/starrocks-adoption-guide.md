@@ -2,14 +2,10 @@
 title: "StarRocks 도입기: 실시간 OLAP으로 데이터 파이프라인을 혁신한 이야기"
 date: 2026-02-23
 draft: false
-author: "Seungwoo Noh"
 categories: [StarRocks, Data Engineering]
 tags: [starrocks, olap, real-time, kafka, performance-tuning, data-pipeline]
-ShowToc: true
-TocOpen: true
+showTableOfContents: true
 summary: "기존 Trino + Airflow 파이프라인의 5분 지연을 서브초 레이턴시로 개선한 StarRocks 도입 과정을 정리했습니다. 테이블 모델 선택, 데이터 수집, 성능 튜닝, 운영 노하우까지 실무에서 얻은 교훈을 공유합니다."
-cover:
-  image: ""
 ---
 
 ## 도입 배경

@@ -2,14 +2,10 @@
 title: "StarRocks Adoption Story: Revolutionizing Data Pipelines with Real-time OLAP"
 date: 2026-02-23
 draft: false
-author: "Seungwoo Noh"
 categories: [StarRocks, Data Engineering]
 tags: [starrocks, olap, real-time, kafka, performance-tuning, data-pipeline]
-ShowToc: true
-TocOpen: true
+showTableOfContents: true
 summary: "How we reduced pipeline latency from 5 minutes to sub-second by adopting StarRocks. Covers table model selection, data ingestion, performance tuning, and operational lessons from production."
-cover:
-  image: ""
 ---
 
 ## Background

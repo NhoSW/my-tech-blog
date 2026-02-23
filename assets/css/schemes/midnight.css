@@ -1,0 +1,37 @@
+/* Midnight Editorial — deep navy + warm amber accent */
+:root {
+  --color-neutral: 255, 255, 255;
+  /* Slate-blue neutrals */
+  --color-neutral-50: 248, 250, 252;
+  --color-neutral-100: 241, 243, 249;
+  --color-neutral-200: 221, 227, 237;
+  --color-neutral-300: 186, 196, 213;
+  --color-neutral-400: 141, 155, 179;
+  --color-neutral-500: 100, 116, 145;
+  --color-neutral-600: 72, 87, 116;
+  --color-neutral-700: 51, 65, 90;
+  --color-neutral-800: 26, 34, 56;
+  --color-neutral-900: 13, 18, 36;
+  /* Teal primary */
+  --color-primary-50: 240, 253, 250;
+  --color-primary-100: 204, 251, 241;
+  --color-primary-200: 153, 246, 228;
+  --color-primary-300: 94, 234, 212;
+  --color-primary-400: 45, 212, 191;
+  --color-primary-500: 20, 184, 166;
+  --color-primary-600: 13, 148, 136;
+  --color-primary-700: 15, 118, 110;
+  --color-primary-800: 17, 94, 89;
+  --color-primary-900: 18, 78, 74;
+  /* Warm amber accent */
+  --color-secondary-50: 255, 251, 235;
+  --color-secondary-100: 254, 243, 199;
+  --color-secondary-200: 253, 230, 138;
+  --color-secondary-300: 252, 211, 77;
+  --color-secondary-400: 251, 191, 36;
+  --color-secondary-500: 245, 158, 11;
+  --color-secondary-600: 217, 119, 6;
+  --color-secondary-700: 180, 83, 9;
+  --color-secondary-800: 146, 64, 14;
+  --color-secondary-900: 120, 53, 15;
+}
