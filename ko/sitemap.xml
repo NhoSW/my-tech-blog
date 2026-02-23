@@ -11,6 +11,9 @@
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/airflow/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/bali/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/categories/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -66,6 +69,12 @@
                 href="https://NhoSW.github.io/my-tech-blog/ko/tags/data-pipeline/"
                 />
   </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/digital-nomad/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/family/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/iceberg/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
@@ -83,6 +92,9 @@
                 />
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/lakehouse/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/categories/life/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/olap/</loc>
@@ -155,6 +167,9 @@
                 hreflang="ko"
                 href="https://NhoSW.github.io/my-tech-blog/ko/tags/real-time/"
                 />
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/remote-work/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/starburst/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
@@ -234,6 +249,12 @@
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/vector-store/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/tags/workation/</loc>
+    <lastmod>2026-02-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://NhoSW.github.io/my-tech-blog/ko/posts/bali-remote-work-with-family/</loc>
     <lastmod>2026-02-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://NhoSW.github.io/my-tech-blog/ko/privacy-policy/</loc>
