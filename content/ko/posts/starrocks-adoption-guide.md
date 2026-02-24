@@ -1,5 +1,5 @@
 ---
-title: "StarRocks 도입기: 실시간 OLAP으로 데이터 파이프라인을 혁신한 이야기"
+title: "StarRocks 도입기: 실시간 OLAP으로 데이터 파이프라인을 뜯어고친 이야기"
 date: 2026-02-23
 draft: false
 categories: [StarRocks, Data Engineering]
@@ -10,28 +10,28 @@ summary: "기존 Trino + Airflow 파이프라인의 5분 지연을 서브초 레
 
 ## 도입 배경
 
-데이터 파이프라인을 운영하다 보면 한 가지 고민에 반드시 부딪힌다. **실시간 대시보드를 어떻게 만들 것인가?**
+데이터 파이프라인을 운영하다보면 한 가지 고민에 반드시 부딪힌다. **실시간 대시보드를 어떻게 만들 것인가?**
 
-우리 팀도 마찬가지였다. 기존 파이프라인 구조는 이랬다.
+우리 팀도 똑같았다. 기존 파이프라인 구조는 이랬다.
 
 ```
 Service → Kafka → Iceberg → S3 → Trino → Airflow(5분) → Dashboard
 ```
 
-겉보기엔 잘 동작했지만 실무에서 체감하는 문제는 분명했다.
+겉보기엔 잘 돌아갔지만 실무에서 체감하는 문제는 분명했다.
 
-- **최소 5분 지연**: Airflow 스케줄 주기가 병목이었다
-- **파이프라인 복잡도**: Kafka → Flink → Redis → API → Dashboard로 이어지는 컴포넌트 5개 이상을 관리해야 했다
-- **반복되는 I/O**: Trino가 매 쿼리마다 S3를 풀스캔했다
-- **높은 개발 비용**: 실시간 대시보드 하나를 새로 만드는 데 약 2주가 걸렸다
+- **최소 5분 지연**. Airflow 스케줄 주기가 병목이었다
+- **파이프라인 복잡도**. Kafka → Flink → Redis → API → Dashboard까지 컴포넌트 5개 이상을 관리해야 했다
+- **반복되는 I/O**. Trino가 매 쿼리마다 S3를 풀스캔했다
+- **높은 개발 비용**. 실시간 대시보드 하나 새로 만드는 데 약 2주 걸렸다
 
-StarRocks를 도입한 뒤 아키텍처는 이렇게 단순해졌다.
+StarRocks를 도입한 뒤 아키텍처가 이렇게 바뀌었다.
 
 ```
 Service → Kafka → StarRocks → Dashboard (서브초 레이턴시)
 ```
 
-중간 컴포넌트가 사라지면서 파이프라인이 크게 단순해졌다. 데이터가 Kafka에서 StarRocks로 바로 들어가니 실시간성도 갖출 수 있었다.
+중간 컴포넌트가 빠지면서 파이프라인이 크게 단순해졌다. Kafka에서 StarRocks로 바로 넣으니 실시간성도 갖출 수 있었다.
 
 ## 도입 효과
 
@@ -45,11 +45,11 @@ Service → Kafka → StarRocks → Dashboard (서브초 레이턴시)
 | 쿼리 응답 시간 | 30~50초 | 5~10초 | 5~10배 |
 | 하드웨어 비용 | 128GB × 18노드 | 64GB × 3노드 | ~75% 절감 |
 
-> Trino는 절대적인 쿼리 시간에서는 빠르지만, Airflow 스케줄 지연까지 포함한 **end-to-end 레이턴시**와 하드웨어 비용 효율 면에서 StarRocks가 실시간 워크로드에 더 맞았다.
+> Trino는 절대적인 쿼리 시간에서는 빠르지만 Airflow 스케줄 지연까지 포함한 **end-to-end 레이턴시**와 하드웨어 비용 면에서 StarRocks가 실시간 워크로드에 더 맞았다.
 
 ## 테이블 모델 선택 가이드
 
-StarRocks를 처음 도입할 때 가장 중요한 결정이 테이블 모델 선택이다. 잘못 고르면 나중에 테이블을 다시 만들어야 한다.
+StarRocks를 처음 도입할 때 가장 신경 써야 할 결정이 테이블 모델이다. 잘못 고르면 나중에 테이블을 다시 만들어야 한다.
 
 ### 의사결정 흐름
 
@@ -86,9 +86,9 @@ StarRocks를 처음 도입할 때 가장 중요한 결정이 테이블 모델 �
 | Aggregate Key | X | 자동 | O | 실시간 통계 ★ |
 | Primary Key | X | O (고속) | X | 빈번한 UPDATE |
 
-### Duplicate Key: 원본 데이터 저장
+### Duplicate Key. 원본 데이터 저장
 
-클릭 로그, API 이벤트, 센서 데이터처럼 원본을 그대로 보관해야 할 때 쓴다.
+클릭 로그나 API 이벤트, 센서 데이터처럼 원본을 그대로 보관해야 할 때 쓴다.
 
 ```sql
 CREATE TABLE order_events (
@@ -104,9 +104,9 @@ PARTITION BY date_trunc('day', event_time)
 DISTRIBUTED BY HASH(event_id) BUCKETS 10;
 ```
 
-### Aggregate Key: 실시간 통계 ★
+### Aggregate Key. 실시간 통계 ★
 
-데이터가 수집되는 시점에 **자동으로 집계**가 일어난다. StarRocks 도입에서 가장 값어치 있었던 모델이다.
+데이터가 수집되는 시점에 **자동으로 집계**가 일어난다. StarRocks 도입에서 가장 값어치있었던 모델이다.
 
 ```sql
 CREATE TABLE order_stats (
@@ -134,11 +134,11 @@ DISTRIBUTED BY HASH(stat_time) BUCKETS 10;
 | `BITMAP_UNION` | 정확한 유니크 카운트 | 순 이용자 수 |
 | `HLL_UNION` | 근사 유니크 카운트 | 대규모 카디널리티 |
 
-> `BITMAP_UNION`은 HyperLogLog와 달리 **정확한** 유니크 카운트를 제공한다. 비즈니스 KPI 대시보드처럼 정확도가 중요하면 반드시 이 방식을 쓰자.
+> `BITMAP_UNION`은 HyperLogLog와 달리 **정확한** 유니크 카운트를 제공한다. 비즈니스 KPI 대시보드처럼 정확도가 중요하면 반드시 이걸 쓰자.
 
-### Primary Key: 빈번한 UPDATE
+### Primary Key. 빈번한 UPDATE
 
-주문 상태 추적이나 재고 관리처럼 같은 키의 데이터가 자주 갱신되는 경우에 맞다.
+주문 상태를 추적하거나 재고를 관리하는 것처럼 같은 키 데이터가 자주 갱신되는 경우에 맞다.
 
 ```sql
 CREATE TABLE orders (
@@ -158,9 +158,9 @@ PROPERTIES (
 
 ## 데이터 수집
 
-### Routine Load: Kafka 실시간 연동
+### Routine Load. Kafka 실시간 연동
 
-Kafka 토픽에서 데이터를 연속으로 가져오는 방식이다. 대부분의 실시간 파이프라인이 이 방식을 쓴다.
+Kafka 토픽에서 데이터를 연속으로 가져오는 방식이다. 실시간 파이프라인 대부분이 이걸 쓴다.
 
 ```sql
 CREATE ROUTINE LOAD order_load ON orders
@@ -206,7 +206,7 @@ FROM KAFKA (
 
 이 패턴 하나로 기존에 Flink로 처리하던 집계 로직을 SQL만으로 대체했다.
 
-### Stream Load: 벌크 데이터 로딩
+### Stream Load. 벌크 데이터 로딩
 
 파일이나 API로 한번에 대량 로딩할 때 쓴다.
 
@@ -241,11 +241,11 @@ pipeline_exec_thread_pool_thread_num = 32   # 기본값: 24
 | 50~100 GB | 30 |
 | > 100 GB | 50+ |
 
-산정 공식: `buckets = max(1, 데이터_크기_GB / 10)`
+산정 공식. `buckets = max(1, 데이터_크기_GB / 10)`
 
 ### 파티셔닝 전략
 
-파티션 컬럼에 함수를 쓰면 파티션 프루닝이 동작하지 않는다. 생각보다 자주 실수하는 부분이다.
+파티션 컬럼에 함수를 쓰면 파티션 프루닝이 안 된다. 생각보다 자주 실수하는 부분이다.
 
 ```sql
 -- ✅ 올바른 사용: 파티션 프루닝 동작
@@ -257,7 +257,7 @@ WHERE DATE(event_time) >= CURRENT_DATE - 3
 
 ### TTL 설정
 
-오래된 파티션을 자동 삭제하려면 TTL을 설정한다.
+오래된 파티션을 자동 삭제하려면 TTL을 건다.
 
 ```sql
 PROPERTIES (
@@ -284,7 +284,7 @@ ALTER MATERIALIZED VIEW db.mv_name ACTIVE;
 
 ### Routine Load 모니터링
 
-상태가 `PAUSED`로 바뀌는 경우가 잦다. Kafka offset 문제나 비정상 메시지가 원인인 경우가 많다.
+상태가 `PAUSED`로 바뀌는 경우가 잦다. Kafka offset이 꼬이거나 비정상 메시지가 들어올 때 그렇다.
 
 ```sql
 -- 상태 확인
@@ -296,7 +296,7 @@ RESUME ROUTINE LOAD FOR db.load_job;
 
 ### Scale-in 주의사항
 
-노드를 축소할 때는 **반드시 Decommission을 먼저** 해야 한다. 이 절차 없이 노드를 줄이면 데이터가 유실된다.
+노드를 축소할 때는 **반드시 Decommission을 먼저** 해야 한다. 이 절차를 빼먹고 노드를 줄이면 데이터가 유실된다.
 
 ```sql
 -- 1. 현재 노드 확인
@@ -319,7 +319,7 @@ ALTER SYSTEM DROP BACKEND "<BE_IP>:<HEARTBEAT_PORT>";
 | datetime 파티션 | Iceberg datetime 파티션 호환 이슈 | 대체 파티션 전략 사용 |
 | 버전 업그레이드 | 4.x 대에서 버그 경험 | 스테이징 환경 필수 테스트 |
 
-> 버전 업그레이드는 반드시 스테이징 환경에서 충분히 검증한 뒤 프로덕션에 적용하자. 실제로 여러 차례 업그레이드와 다운그레이드를 반복한 적이 있다. 롤백 계획은 항상 준비해두자.
+> 버전 업그레이드는 반드시 스테이징에서 충분히 검증하고 프로덕션에 적용하자. 실제로 여러 차례 업그레이드와 다운그레이드를 반복한 적이 있다. 롤백 계획은 항상 준비해두자.
 
 ### 도입 체크리스트
 
@@ -338,13 +338,13 @@ ALTER SYSTEM DROP BACKEND "<BE_IP>:<HEARTBEAT_PORT>";
 
 ## 마치며
 
-StarRocks 도입에서 얻은 교훈을 정리한다.
+StarRocks를 도입하면서 배운 것을 정리한다.
 
-1. **Aggregate Key 모델이 핵심이다.** 수집 시점에 자동 집계되므로 스토리지와 쿼리 성능을 동시에 잡을 수 있다.
-2. **BITMAP_UNION으로 정확한 유니크 카운트를 확보하자.** 비즈니스 KPI에는 근사치가 아닌 정확한 수치가 필요하다.
+1. **Aggregate Key 모델이 제일 쓸모있다.** 수집 시점에 자동 집계되니까 스토리지와 쿼리 성능을 동시에 잡을 수 있다.
+2. **BITMAP_UNION으로 정확한 유니크 카운트를 확보하자.** 비즈니스 KPI에는 근사치가 아니라 정확한 수치가 필요하다.
 3. **Routine Load + Aggregate Key 조합이 Flink를 대체한다.** SQL만으로 실시간 집계 파이프라인을 구축할 수 있다.
 4. **운영 자동화에 투자하자.** Materialized View와 Routine Load 모니터링은 빠뜨리면 안 된다.
 
-실시간 분석 워크로드에서 StarRocks는 파이프라인 복잡도를 크게 낮춰주는 좋은 선택지다. 다만 버전 업그레이드와 운영 안정성 면에서 아직 무르익는 단계이므로 충분히 PoC하고 스테이징에서 검증한 뒤 도입하길 권한다.
+실시간 분석 워크로드에서 StarRocks는 파이프라인 복잡도를 크게 낮춰준다. 다만 버전 업그레이드나 운영 안정성 쪽은 아직 무르익는 단계라서 충분히 PoC하고 스테이징에서 검증한 뒤 도입하길 권한다.
 
 **참고 자료**: [StarRocks 공식 문서](https://docs.starrocks.io)
