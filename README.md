@@ -5,7 +5,7 @@ A bilingual (English/Korean) tech blog focused on data engineering.
 ## Tech Stack
 
 - **Static Site Generator:** [Hugo](https://gohugo.io/)
-- **Theme:** [PaperMod](https://github.com/adityatelange/hugo-PaperMod)
+- **Theme:** [Blowfish](https://github.com/nunocoracao/blowfish)
 - **Hosting:** GitHub Pages
 - **CI/CD:** GitHub Actions
 
@@ -13,8 +13,8 @@ A bilingual (English/Korean) tech blog focused on data engineering.
 
 ```bash
 # Clone with submodules
-git clone --recurse-submodules https://github.com/NhoSW/my-tech-blog.git
-cd my-tech-blog
+git clone --recurse-submodules https://github.com/NhoSW/my-blog.git
+cd my-blog
 
 # Run local server
 hugo server -D
