@@ -1,5 +1,5 @@
 baseURL = "https://nanta-data.dev/"
-defaultContentLanguage = "en"
+defaultContentLanguage = "ko"
 theme = "blowfish"
 paginate = 10
 enableRobotsTXT = true

@@ -1,6 +1,6 @@
 languageCode = "ko"
 languageName = "한국어"
-weight = 2
+weight = 1
 contentDir = "content/ko"
 title = "nanta - 데이터 엔지니어링"
 

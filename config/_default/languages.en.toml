@@ -1,6 +1,6 @@
 languageCode = "en"
 languageName = "English"
-weight = 1
+weight = 2
 contentDir = "content/en"
 title = "nanta - Data Engineering"
 
