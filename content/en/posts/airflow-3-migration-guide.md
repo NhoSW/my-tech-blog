@@ -3,7 +3,7 @@ title: "Airflow 3.0 Migration Guide: Lessons from a Large-Scale DAG Environment"
 date: 2026-02-23
 draft: false
 categories: [Data Engineering]
-tags: [airflow, migration, orchestration, python, data-pipeline]
+tags: [airflow, migration, orchestration, python, data-pipeline, ruff]
 showTableOfContents: true
 summary: "Practical lessons from migrating to Airflow 3.x ahead of the 2.x EOL. Covers major breaking changes, a phased upgrade strategy, DAG compatibility approaches, and hard-won lessons from operating hundreds of DAGs in production."
 ---
@@ -218,13 +218,110 @@ host = conn.host
 # After: from airflow.providers.cncf.kubernetes.operators.pod import ...
 ```
 
+### 9. Remove `provide_context=True`
+
+Since Airflow 2.0, PythonOperator injects context automatically. `provide_context=True` does nothing, but a surprising number of DAGs still have it.
+
+```python
+# Before
+PythonOperator(
+    task_id="my_task",
+    python_callable=my_func,
+    provide_context=True,
+)
+
+# After
+PythonOperator(
+    task_id="my_task",
+    python_callable=my_func,
+)
+```
+
+### 10. `from airflow.models import DAG` → `from airflow import DAG`
+
+`airflow.models.DAG` is deprecated in v3. `from airflow import DAG` works in both v2 and v3.
+
+```python
+# Before
+from airflow.models import DAG
+
+# After
+from airflow import DAG
+```
+
+Note: the pattern `from airflow import models` followed by `models.DAG()` does not need to change.
+
+### 11. Remove `@apply_defaults` Decorator
+
+Since Airflow 2.0, BaseOperator handles this automatically. Remove it from custom operators.
+
+```python
+# Before
+from airflow.utils.decorators import apply_defaults
+
+class CustomOperator(BaseOperator):
+    @apply_defaults
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+# After
+class CustomOperator(BaseOperator):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+```
+
+### 12. `concurrency` → `max_active_tasks`
+
+The DAG parameter `concurrency` is removed in v3. Same meaning, clearer name.
+
+```python
+# Before
+with DAG(dag_id="my_dag", concurrency=5) as dag:
+
+# After
+with DAG(dag_id="my_dag", max_active_tasks=5) as dag:
+```
+
+### 13. Remove Direct `TaskInstance` Construction
+
+`kwargs["ti"]` is already a TaskInstance object. There's no reason to create another one. `ti.execution_date` access and the `TaskInstance(task, execution_date)` constructor are deprecated in v3.
+
+```python
+# Before
+def my_callable(**kwargs):
+    ti = TaskInstance(kwargs["ti"].task, kwargs["ti"].execution_date)
+    ti.xcom_push(key="my_key", value=result)
+
+# After
+def my_callable(**kwargs):
+    ti = kwargs["ti"]
+    ti.xcom_push(key="my_key", value=result)
+```
+
 ---
 
 ## Migration Strategies for Large-Scale DAG Environments
 
+### Detect Incompatibilities with ruff
+
+Scanning hundreds of DAGs by eye is not feasible. ruff has Airflow-specific rules that catch incompatible code automatically.
+
+```bash
+# Check a specific file
+ruff check --preview --select AIR dags/my_dag.py
+
+# Check an entire team directory
+ruff check --preview --select AIR dags/my_team/
+```
+
+| Rule | What It Catches |
+|------|----------------|
+| AIR301 | Deprecated decorators (`@apply_defaults`, etc.) |
+| AIR302 | Deprecated parameters, import paths, template variables |
+
 ### Add v3 Compatibility Checks to Your CI Pipeline
 
-It's impossible to manually verify hundreds of DAGs. We added a CI job that automatically checks v3 compatibility at the MR (Merge Request) stage.
+We added a CI job that automatically checks v3 compatibility at the MR (Merge Request) stage.
 
 ```yaml
 # .gitlab-ci.yml example
@@ -233,12 +330,25 @@ airflow-v3-compat-check:
   image: apache/airflow:3.0.6-python3.12
   script:
     - pip install -r requirements.txt
+    - ruff check --preview --select AIR dags/
     - python -m py_compile dags/**/*.py
     - airflow dags list --output table
   allow_failure: true  # Start as warning-only, then switch to required
 ```
 
 Start with `allow_failure: true` to get a picture of the current state, then switch to mandatory checks as the migration deadline approaches.
+
+### The Rollout: Three Rounds of Bulk Fixes
+
+We fixed incompatible code across the entire DAG repository in three rounds.
+
+| Round | Files Changed | Key Fixes |
+|-------|--------------|-----------|
+| 1st | 252 | `schedule_interval`→`schedule`, `DummyOperator`→`EmptyOperator` |
+| 2nd | 35 | Missed items from round 1, `provide_context` removal, misspelled parameter names |
+| 3rd | 21 | DAG import paths, Jinja template variables, `concurrency`→`max_active_tasks`, direct `TaskInstance` construction |
+
+We changed 252 files in the first round alone, and there were still gaps. Patterns that ruff can't detect (misspelled parameters, unnecessary arguments on custom operators) had to be found manually. Don't expect to finish in one pass.
 
 ### Intentionally Keep the Migration Hurdle High
 

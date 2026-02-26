@@ -3,7 +3,7 @@ title: "Airflow 3.0 마이그레이션 가이드: 대규모 DAG 환경에서의 
 date: 2026-02-23
 draft: false
 categories: [Data Engineering]
-tags: [airflow, migration, orchestration, python, data-pipeline]
+tags: [airflow, migration, orchestration, python, data-pipeline, ruff]
 showTableOfContents: true
 summary: "Airflow 2.x EOL을 앞두고 3.x로 마이그레이션한 실전 경험을 공유한다. Breaking Changes, 단계적 업그레이드 전략, DAG 호환성 확보 방법, 수백 개 DAG을 운영하는 환경에서 배운 교훈을 정리했다."
 ---
@@ -232,13 +232,110 @@ host = conn.host
 # After: from airflow.providers.cncf.kubernetes.operators.pod import ...
 ```
 
+### 9. `provide_context=True` 제거
+
+Airflow 2.0부터 PythonOperator에서 context가 자동 주입된다. `provide_context=True`는 아무 역할도 하지 않는데 남아 있는 코드가 꽤 많다.
+
+```python
+# Before
+PythonOperator(
+    task_id="my_task",
+    python_callable=my_func,
+    provide_context=True,
+)
+
+# After
+PythonOperator(
+    task_id="my_task",
+    python_callable=my_func,
+)
+```
+
+### 10. `from airflow.models import DAG` → `from airflow import DAG`
+
+`airflow.models.DAG`은 v3에서 deprecated다. `from airflow import DAG`으로 바꾸면 v2/v3 양쪽 다 동작한다.
+
+```python
+# Before
+from airflow.models import DAG
+
+# After
+from airflow import DAG
+```
+
+`from airflow import models` 후 `models.DAG()`으로 쓰는 패턴은 바꿀 필요 없다.
+
+### 11. `@apply_defaults` 데코레이터 제거
+
+Airflow 2.0부터 BaseOperator가 자동 처리한다. 커스텀 Operator에 남아 있으면 제거하면 된다.
+
+```python
+# Before
+from airflow.utils.decorators import apply_defaults
+
+class CustomOperator(BaseOperator):
+    @apply_defaults
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+# After
+class CustomOperator(BaseOperator):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+```
+
+### 12. `concurrency` → `max_active_tasks`
+
+DAG 파라미터 `concurrency`가 v3에서 제거된다. 의미는 동일하지만 이름이 더 명확해졌다.
+
+```python
+# Before
+with DAG(dag_id="my_dag", concurrency=5) as dag:
+
+# After
+with DAG(dag_id="my_dag", max_active_tasks=5) as dag:
+```
+
+### 13. `TaskInstance` 직접 생성 제거
+
+`kwargs["ti"]`가 이미 TaskInstance 객체다. 별도로 생성할 이유가 없다. `ti.execution_date` 접근과 `TaskInstance(task, execution_date)` 생성자는 v3에서 deprecated다.
+
+```python
+# Before
+def my_callable(**kwargs):
+    ti = TaskInstance(kwargs["ti"].task, kwargs["ti"].execution_date)
+    ti.xcom_push(key="my_key", value=result)
+
+# After
+def my_callable(**kwargs):
+    ti = kwargs["ti"]
+    ti.xcom_push(key="my_key", value=result)
+```
+
 ---
 
 ## 대규모 DAG 환경에서 마이그레이션하기
 
+### ruff로 비호환 항목 자동 검출
+
+수백 개 DAG을 눈으로 훑는 건 불가능하다. ruff의 Airflow 전용 규칙을 쓰면 비호환 코드를 자동으로 잡아준다.
+
+```bash
+# 특정 파일 검사
+ruff check --preview --select AIR dags/my_dag.py
+
+# 팀 디렉터리 전체 검사
+ruff check --preview --select AIR dags/my_team/
+```
+
+| Rule | 대상 |
+|------|------|
+| AIR301 | deprecated 데코레이터 (`@apply_defaults` 등) |
+| AIR302 | deprecated 파라미터, import 경로, 템플릿 변수 |
+
 ### CI 파이프라인에 v3 호환성 검증 추가
 
-수백 개 DAG을 수동으로 검증하는 건 불가능하다. MR(Merge Request) 단계에서 v3 호환성을 자동 검증하는 CI 잡을 추가했다.
+MR(Merge Request) 단계에서 v3 호환성을 자동 검증하는 CI 잡을 추가했다.
 
 ```yaml
 # .gitlab-ci.yml 예시
@@ -247,12 +344,25 @@ airflow-v3-compat-check:
   image: apache/airflow:3.0.6-python3.12
   script:
     - pip install -r requirements.txt
+    - ruff check --preview --select AIR dags/
     - python -m py_compile dags/**/*.py
     - airflow dags list --output table
   allow_failure: true  # 초기에는 경고만, 이후 필수로 전환
 ```
 
 처음에는 `allow_failure: true`로 시작해서 현황을 파악하고 마이그레이션 기한이 다가오면 필수 검증으로 전환한다.
+
+### 실전 수정 이력: 3라운드에 걸친 일괄 수정
+
+우리는 전체 DAG 레포지토리에 대해 3차에 걸쳐 비호환 항목을 수정했다.
+
+| 차수 | 변경 파일 수 | 주요 수정 항목 |
+|------|------------|--------------|
+| 1차 | 252개 | `schedule_interval`→`schedule`, `DummyOperator`→`EmptyOperator` |
+| 2차 | 35개 | 1차 누락분 보완, `provide_context` 제거, 파라미터 오입력 수정 |
+| 3차 | 21개 | DAG import 경로, Jinja 템플릿 변수, `concurrency`→`max_active_tasks`, `TaskInstance` 직접 생성 제거 |
+
+1차에서 252개 파일을 한꺼번에 수정했는데, 그래도 누락이 생겼다. ruff가 잡아주지 못하는 패턴(파라미터 오입력, 사내 커스텀 오퍼레이터의 불필요 인자 등)은 수작업으로 찾아야 했다. 한 번에 끝낼 수 있을 거라고 기대하지 않는 게 좋다.
 
 ### 이관 허들을 의도적으로 높여라
 
