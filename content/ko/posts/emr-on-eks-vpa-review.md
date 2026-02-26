@@ -1,16 +1,16 @@
 ---
-title: "EMR on EKS VPA 검토기: 18개월간의 삽질과 ScaleOps로의 전환"
+title: "EMR on EKS VPA 검토기: AWS 공식 기능이 동작하지 않을 때"
 date: 2026-02-27
 draft: false
 categories: [Data Engineering]
-tags: [emr, eks, vpa, spark, kubernetes, scaleops, autoscaling]
+tags: [emr, eks, vpa, spark, kubernetes, autoscaling]
 showTableOfContents: true
-summary: "EMR on EKS 환경에서 Spark executor 리소스를 자동으로 최적화하려고 AWS 제공 VPA를 검토했다. 18개월에 걸쳐 PoC를 진행했지만 오퍼레이터 자체가 정상 동작하지 않았다. AWS 서포트 케이스를 여러 차례 열었고 매니페스트 번들까지 받아서 커스터마이징했지만 결국 포기하고 ScaleOps로 대체했다."
+summary: "EMR on EKS 환경에서 Spark executor 리소스를 자동 최적화하려고 AWS 제공 VPA를 검토했다. 약 한 달간 PoC를 진행했지만 오퍼레이터 자체가 정상 동작하지 않았다. AWS 서포트 케이스를 여러 차례 열었고 매니페스트 번들까지 받아서 커스터마이징했지만 결국 포기했다."
 ---
 
 EMR on EKS로 Spark 잡을 돌리면 executor 팟이 Kubernetes 위에 뜬다. 문제는 executor의 CPU와 메모리를 얼마나 줘야 하는지 잡마다 다르고 시간대마다 다르다는 거다. 너무 많이 주면 리소스가 낭비되고 너무 적게 주면 OOM으로 죽는다.
 
-VPA(Vertical Pod Autoscaler)를 쓰면 과거 실행 이력을 기반으로 적절한 리소스를 추천하고 자동으로 조정해준다. AWS가 EMR on EKS 전용 VPA 연동 기능을 제공한다고 해서 검토에 들어갔다. 2024년 1월에 시작해서 2025년 7월에 포기했다. 18개월이다.
+VPA(Vertical Pod Autoscaler)를 쓰면 과거 실행 이력을 기반으로 적절한 리소스를 추천하고 자동으로 조정해준다. AWS가 EMR on EKS 전용 VPA 연동 기능을 제공한다고 해서 검토에 들어갔다. 약 한 달간 집중적으로 PoC를 진행했지만 결국 포기했다.
 
 이 글은 그 과정에서 배운 것을 정리한 기록이다.
 
@@ -120,7 +120,7 @@ AWS가 번들링한 오퍼레이터 패키지를 EKS에 설치하는 구조라 �
 
 ## 결론: 기능 자체가 유지보수되고 있지 않았다
 
-18개월간의 검토 끝에 내린 결론이다.
+한 달간의 검토 끝에 내린 결론이다.
 
 EMR VPA 연동 기능은 **AWS 측에서 더 이상 개발/유지보수하고 있지 않은 것으로 보인다.** 근거는 두 가지다.
 
@@ -128,14 +128,6 @@ EMR VPA 연동 기능은 **AWS 측에서 더 이상 개발/유지보수하고 �
 2. Kubernetes 1.27에서 도입된 In-place Pod Resize 기능이 VPA의 상위 호환이다. AWS가 EMR on EKS에 이 기능을 직접 연동할 계획이라는 얘기가 서밋에서 나왔다
 
 VPA의 가장 큰 약점은 리소스를 조정하려면 팟을 재시작해야 한다는 점이다. In-place Pod Resize는 팟을 죽이지 않고 리소스를 변경할 수 있다. Kubernetes autoscaler 쪽에도 VPA에 in-place resize를 적용하는 PR이 올라온 상태다.
-
----
-
-## ScaleOps로 전환
-
-최종적으로 ScaleOps를 도입해서 EMR VPA가 하려던 역할을 대체했다. Airflow에서 제출하는 Spark 잡에 적절한 라벨링과 그루핑 룰을 추가하면 ScaleOps가 실행 이력 기반으로 리소스를 자동 최적화한다.
-
-ScaleOps는 서드파티 솔루션이지만 EMR VPA처럼 블랙박스가 아니라 동작 방식이 투명하고 지원도 빠르다.
 
 ---
 

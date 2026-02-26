@@ -1,16 +1,16 @@
 ---
-title: "EMR on EKS VPA Review: 18 Months of Debugging and the Switch to ScaleOps"
+title: "EMR on EKS VPA Review: When an Official AWS Feature Doesn't Work"
 date: 2026-02-27
 draft: false
 categories: [Data Engineering]
-tags: [emr, eks, vpa, spark, kubernetes, scaleops, autoscaling]
+tags: [emr, eks, vpa, spark, kubernetes, autoscaling]
 showTableOfContents: true
-summary: "We tried using AWS's built-in VPA integration for EMR on EKS to auto-optimize Spark executor resources. After 18 months of PoC work, multiple AWS support cases, and a custom manifest bundle rebuild, the operator still didn't work. We abandoned it and switched to ScaleOps."
+summary: "We tried using AWS's built-in VPA integration for EMR on EKS to auto-optimize Spark executor resources. After about a month of intensive PoC work, multiple AWS support cases, and a custom manifest bundle rebuild, the operator still didn't work. We abandoned it."
 ---
 
 When you run Spark jobs on EMR on EKS, executor pods land on Kubernetes. The question is how much CPU and memory to give each executor. It varies by job and by time of day. Over-provision and you waste money. Under-provision and you get OOM kills.
 
-VPA (Vertical Pod Autoscaler) can recommend and auto-adjust resources based on historical execution data. AWS provides a VPA integration specifically for EMR on EKS, so we decided to evaluate it. We started in January 2024 and gave up in July 2025. Eighteen months.
+VPA (Vertical Pod Autoscaler) can recommend and auto-adjust resources based on historical execution data. AWS provides a VPA integration specifically for EMR on EKS, so we decided to evaluate it. We ran an intensive PoC for about a month before giving up.
 
 This post covers what we tried and what we learned.
 
@@ -120,7 +120,7 @@ We took the bundle, modified it, reinstalled, and tested again. Same issues. We 
 
 ## Conclusion: The Feature Was Effectively Abandoned
 
-After 18 months of evaluation, our conclusion:
+After about a month of evaluation, our conclusion:
 
 The EMR VPA integration feature **appears to no longer be actively developed or maintained by AWS.** Two pieces of evidence:
 
@@ -128,14 +128,6 @@ The EMR VPA integration feature **appears to no longer be actively developed or 
 2. In-place Pod Resize, introduced in Kubernetes 1.27, is a strictly better alternative. AWS had mentioned plans to integrate it directly into EMR on EKS at a summit event
 
 The fundamental weakness of VPA is that resizing requires pod restarts. In-place Pod Resize changes resources without killing the pod. A PR to bring in-place resize support to the Kubernetes VPA itself has been opened on the autoscaler repo.
-
----
-
-## Switching to ScaleOps
-
-We ultimately adopted ScaleOps to fill the role that EMR VPA was supposed to play. By adding proper labels and grouping rules to Spark jobs submitted from Airflow, ScaleOps auto-optimizes resources based on execution history.
-
-ScaleOps is a third-party solution, but unlike the EMR VPA black box, its behavior is transparent and support is responsive.
 
 ---
 
