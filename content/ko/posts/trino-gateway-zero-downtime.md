@@ -3,7 +3,7 @@ title: "Trino Gateway 도입기: 제로 다운타임 배포와 멀티 클러스�
 date: 2026-02-27
 draft: false
 categories: [Data Engineering]
-tags: [trino, trino-gateway, kubernetes, blue-green, routing, karpenter]
+tags: [trino, trino-gateway, kubernetes, blue-green, routing, karpenter, argocd, helm]
 showTableOfContents: true
 summary: "Trino는 코디네이터 HA를 지원하지 않는다. 코디네이터를 재배포하면 다운타임이 생긴다. Trino Gateway를 도입해서 Blue/Green 배포로 제로 다운타임을 달성하고 BI/OLAP 클러스터를 헤더 기반으로 라우팅한 과정을 정리했다."
 ---
@@ -154,6 +154,69 @@ Superset, Querybook, Zeppelin에 우선 적용했다. 게이트웨이 주소로 
 ### 4단계. 롤링 배치 운영
 
 매일 클러스터 롤링 배치를 Airflow DAG으로 운영하기 시작했다. Beta 환경에서 정상 동작을 확인한 뒤 프로덕션에 적용했다.
+
+---
+
+## 게이트웨이 내부 구조
+
+### Stateful 라우팅과 MetaDB
+
+게이트웨이는 단순한 리버스 프록시가 아니다. Trino 쿼리는 제출 후에도 상태 확인, 결과 조회 등 후속 요청이 같은 코디네이터로 가야 한다. 게이트웨이는 `query_id`별로 어느 백엔드에 라우팅했는지를 MetaDB(MySQL)에 저장한다. 후속 요청이 들어오면 MetaDB를 조회해서 같은 백엔드로 보낸다.
+
+### 인증 연동
+
+게이트웨이 팟에 nginx와 nginx-ldap를 사이드카로 띄워서 LDAP 인증을 연동했다. 게이트웨이 앞에 인증 레이어를 두는 방식이다. 별도의 인증 엔드포인트를 통해 사용자 인증 후 게이트웨이로 요청이 전달된다.
+
+---
+
+## Helm 차트 구성
+
+### Base + 클러스터별 Values 분리
+
+Blue/Green 두 클러스터를 관리하려면 Helm values를 잘 나눠야 한다. CI 러너에서 쓰던 방식을 참고해서 base yaml과 클러스터별 yaml을 분리했다.
+
+```
+values.prod.base.yaml     # 공통 설정
+values.prod.blue.yaml     # Blue 클러스터 전용 (AZ, 노드 셀렉터 등)
+values.prod.green.yaml    # Green 클러스터 전용
+```
+
+배포 시 base와 클러스터별 yaml을 머지해서 적용한다. 공통 설정 변경은 base만 수정하면 되고 클러스터별 차이는 개별 yaml에서 관리한다.
+
+### ArgoCD 독립 앱 등록
+
+Blue와 Green 클러스터를 ArgoCD에 별도 앱으로 등록했다. 두 앱이 독립적으로 관리되니까 한쪽만 업데이트하거나 한쪽만 비활성화하는 게 자유롭다. 롤링 배포 시 Green을 먼저 올리고 Blue를 내리는 식의 제어가 ArgoCD UI에서 바로 가능하다.
+
+---
+
+## 프로덕션 적용 전 선행 작업
+
+### Audit 로그 분리와 통합
+
+Blue/Green 클러스터가 각각 독립된 쿼리 엔진이다 보니 audit 로그도 클러스터별로 나뉜다. 기존에는 단일 클러스터의 audit 로그만 보면 됐는데 이제는 두 클러스터의 로그를 합쳐서 봐야 한다.
+
+두 가지 방안을 검토했다.
+
+1. 클러스터별 audit 로그 테이블을 따로 두고 유니온 뷰를 제공
+2. 기존 audit 로그 테이블에 소스 클러스터 필드를 추가하고 한 테이블에 적재
+
+기존 Airflow audit 로그 덤프 DAG도 수정이 필요했고 클러스터별로 EFS 볼륨(Exchange Manager용 포함)도 추가로 생성해야 했다.
+
+### 부하 테스트
+
+게이트웨이가 앞단에 추가되면서 쿼리 라우팅에 오버헤드가 생긴다. 운영 워크로드를 소화할 수 있는지 검증하기 위해 실제 프로덕션 쿼리를 덤프해서 재생하는 스크립트로 부하 테스트를 수행했다.
+
+---
+
+## Active-Active 검토
+
+현재는 클러스터 그룹당 하나의 클러스터만 활성화하는 Active-Standby 방식이다. 본래 목적이 무중단 배포였으니까 이걸로 충분하다.
+
+한편 같은 클러스터 그룹 안에 여러 코디네이터를 동시에 활성화하는 Active-Active 방식도 검토했다. 코디네이터 한 대의 처리 한계를 넘는 워크로드가 들어오면 필요해질 수 있다.
+
+기본 설정에서는 쿼리가 랜덤하게 배정된다. 엄밀한 라운드 로빈은 아니다. 실제 운용하려면 개별 클러스터의 부하량에 따라 라우팅을 조절해야 한다. 현재 큐 체크로 쿼리 수 기반 분산이 가능하지만 정교한 부하 인지 라우팅은 추가 작업이 필요하다.
+
+당장은 Active-Standby로 운영하되 워크로드가 커지면 Active-Active 전환을 고려할 계획이다.
 
 ---
 

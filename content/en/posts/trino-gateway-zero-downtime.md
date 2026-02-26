@@ -3,7 +3,7 @@ title: "Adopting Trino Gateway: Zero-Downtime Deployments and Multi-Cluster Rout
 date: 2026-02-27
 draft: false
 categories: [Data Engineering]
-tags: [trino, trino-gateway, kubernetes, blue-green, routing, karpenter]
+tags: [trino, trino-gateway, kubernetes, blue-green, routing, karpenter, argocd, helm]
 showTableOfContents: true
 summary: "Trino doesn't support coordinator HA. Redeploying the coordinator means downtime. We adopted Trino Gateway to enable Blue/Green deployments with zero downtime and route BI/OLAP queries to separate clusters based on HTTP headers."
 ---
@@ -154,6 +154,69 @@ Applied to Superset, Querybook, and Zeppelin first. Switched their endpoints to 
 ### Phase 4: Daily Rolling Batch
 
 Started operating the daily cluster rolling batch as an Airflow DAG. Validated in beta first, then applied to production.
+
+---
+
+## Gateway Internals
+
+### Stateful Routing and MetaDB
+
+The gateway is not a simple reverse proxy. After a Trino query is submitted, follow-up requests (status checks, result fetching) must go to the same coordinator. The gateway stores the `query_id`-to-backend mapping in a MetaDB (MySQL). When a follow-up request arrives, it looks up the MetaDB and routes it to the correct backend.
+
+### Authentication Integration
+
+We added nginx and nginx-ldap as sidecars to the gateway pod for LDAP authentication. An authentication layer sits in front of the gateway. Users authenticate through a dedicated auth endpoint before requests reach the gateway.
+
+---
+
+## Helm Chart Structure
+
+### Base + Cluster-Specific Values
+
+Managing Blue/Green clusters requires a clean split of Helm values. We borrowed a pattern from our CI runner setup: separate base yaml from cluster-specific yaml.
+
+```
+values.prod.base.yaml     # Shared settings
+values.prod.blue.yaml     # Blue cluster only (AZ, node selectors, etc.)
+values.prod.green.yaml    # Green cluster only
+```
+
+At deploy time, the base and cluster-specific yamls are merged. Changes to shared settings only require editing the base file. Cluster-specific differences are isolated in their own files.
+
+### Independent ArgoCD Apps
+
+Blue and Green clusters are registered as separate ArgoCD applications. Since each app is managed independently, updating or deactivating one side is straightforward. During rolling deployments, spinning up Green first and then taking down Blue is controllable directly from the ArgoCD UI.
+
+---
+
+## Pre-Production Prerequisites
+
+### Audit Log Separation and Unification
+
+With Blue/Green clusters running as independent query engines, audit logs are split per cluster. Previously we only had to look at one cluster's logs. Now we need a combined view across both.
+
+Two approaches were considered:
+
+1. Separate audit log tables per cluster with a union view on top
+2. A single audit log table with an added source cluster field
+
+The existing Airflow audit log dump DAG needed modification, and additional EFS volumes (including Exchange Manager volumes) had to be provisioned per cluster.
+
+### Load Testing
+
+Adding a gateway in front introduces routing overhead. To verify it could handle production workloads, we ran load tests by replaying dumped production queries through the gateway.
+
+---
+
+## Active-Active Consideration
+
+The current setup is Active-Standby within each cluster group. One active cluster at a time. This is sufficient for the original goal of zero-downtime deployments.
+
+We also evaluated Active-Active — running multiple coordinators simultaneously within the same cluster group. This becomes relevant when workloads exceed what a single coordinator can handle.
+
+With default settings, queries are distributed randomly. Not strict round-robin. For production Active-Active, routing needs to account for each cluster's current load. The queue check provides query-count-based distribution, but more sophisticated load-aware routing would require additional work.
+
+For now we operate in Active-Standby mode, with Active-Active as a future option if workload demands grow.
 
 ---
 
