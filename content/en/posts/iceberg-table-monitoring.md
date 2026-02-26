@@ -76,7 +76,7 @@ The general dashboard tracks trends over time. This dashboard examines partition
 
 ## Trino Meta-Table Bugs and Cherry-Picks
 
-We found two issues in our production Trino v451 and cherry-picked fixes from later versions.
+When we started building the monitoring system, we were running Trino v451. We found two issues and cherry-picked fixes from later versions. These fixes were later included natively when we upgraded to v476.
 
 ### $files Not Showing Delete Files
 
@@ -130,9 +130,9 @@ This can also be attached as a post-step to existing compaction jobs, adding met
 
 ### Listing Iceberg Tables Automatically
 
-In our Trino version, filtering for Iceberg-format tables within a schema isn't possible. Both `SHOW TABLES` and `information_schema.tables` queries return all tables from the Glue Catalog regardless of format, even with table redirection disabled.
+When we initially built this on v451, filtering for Iceberg-format tables within a schema wasn't possible. Both `SHOW TABLES` and `information_schema.tables` queries returned all tables from the Glue Catalog regardless of format, even with table redirection disabled. So we used the Glue API to extract Iceberg tables instead.
 
-The `system.iceberg_tables` table added in v475 solves this by listing only Iceberg tables. Available after a version upgrade.
+The `system.iceberg_tables` table added in v475 solves this by listing only Iceberg tables. It's available in our current v476.
 
 ---
 
@@ -146,20 +146,20 @@ However, a few tables where records get updated or deleted shortly after inserti
 
 ---
 
-## Future Trino Version Improvements
+## From v451 to v476: Monitoring-Related Improvements
 
-We're running v451. Here's what later versions bring for Iceberg monitoring.
+We started monitoring on v451 and later upgraded to v476. Many improvements relevant to Iceberg monitoring landed in between.
 
-| Version | Improvement |
-|---------|-------------|
-| v455 | Fixed `$files` meta-table not recognizing delete files |
-| v465 | Added `partition` field to `$files` meta-table |
-| v466 | Parallelized Glue Catalog queries for performance |
-| v469 | Added `$all_entries` meta-table (corresponds to Spark's `all_entries`) |
-| v470 | `$all_entries` bug fix, `optimize_manifests` procedure added |
-| v475 | `system.iceberg_tables` table added (list Iceberg tables only) |
+| Version | Improvement | How Applied |
+|---------|-------------|-------------|
+| v455 | Fixed `$files` meta-table not recognizing delete files | Cherry-picked to v451 |
+| v465 | Added `partition` field to `$files` meta-table | Cherry-picked to v451 |
+| v466 | Parallelized Glue Catalog queries for performance | Included in v476 upgrade |
+| v469 | Added `$all_entries` meta-table (corresponds to Spark's `all_entries`) | Included in v476 upgrade |
+| v470 | `$all_entries` bug fix, `optimize_manifests` procedure added | Included in v476 upgrade |
+| v475 | `system.iceberg_tables` table added (list Iceberg tables only) | Included in v476 upgrade |
 
-The v455 and v465 fixes were cherry-picked ahead of schedule. The rest will be picked up naturally with version upgrades.
+The v455 and v465 fixes were essential for monitoring, so we cherry-picked them while still on v451. The rest became available naturally with the v476 upgrade.
 
 ---
 

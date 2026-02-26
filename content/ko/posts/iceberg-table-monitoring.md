@@ -76,7 +76,7 @@ Grafana의 Trino 데이터소스를 직접 활용하는 대시보드다. 특정 
 
 ## Trino 메타테이블 버그와 체리피킹
 
-운영 중인 Trino v451에서 두 가지 문제를 발견해서 상위 버전의 픽스를 체리피킹했다.
+모니터링 구축 당시 Trino v451을 운영하고 있었다. 두 가지 문제를 발견해서 상위 버전의 픽스를 체리피킹했다. 이후 v476으로 업그레이드하면서 이 픽스들은 자연스럽게 포함됐다.
 
 ### $files 메타테이블의 delete file 누락
 
@@ -130,9 +130,9 @@ Airflow DAG으로 Iceberg 테이블 메트릭 푸시 파이프라인을 구성�
 
 ### Iceberg 테이블 목록 자동 추출의 한계
 
-Trino에서 특정 스키마 내 Iceberg 포맷 테이블만 선별하는 것이 현재로서는 불가능하다. `SHOW TABLES` 쿼리나 `information_schema.tables` 조회 모두 Glue Catalog에 등록된 모든 테이블을 가져온다. 테이블 리디렉션 비활성화 상태에서도 마찬가지다.
+모니터링 구축 초기(v451)에는 Trino에서 특정 스키마 내 Iceberg 포맷 테이블만 선별하는 것이 불가능했다. `SHOW TABLES` 쿼리나 `information_schema.tables` 조회 모두 Glue Catalog에 등록된 모든 테이블을 가져왔다. 테이블 리디렉션 비활성화 상태에서도 마찬가지였다. 그래서 Glue API를 통해 Iceberg 테이블을 추출하는 방식을 택했다.
 
-v475에 추가된 `system.iceberg_tables` 테이블을 쓰면 Iceberg 테이블만 리스팅할 수 있다. 버전 업그레이드 후 활용할 수 있다.
+v475에 추가된 `system.iceberg_tables` 테이블을 쓰면 Iceberg 테이블만 리스팅할 수 있다. 현재 운영 중인 v476에서 사용 가능하다.
 
 ---
 
@@ -146,20 +146,20 @@ v475에 추가된 `system.iceberg_tables` 테이블을 쓰면 Iceberg 테이블�
 
 ---
 
-## 향후 Trino 버전 업그레이드 시 개선 사항
+## v451에서 v476까지: 모니터링 관련 개선 사항
 
-현재 v451을 운영 중이다. 상위 버전에서 Iceberg 모니터링 관련 개선 사항을 정리했다.
+모니터링 구축은 v451에서 시작했고, 이후 v476으로 업그레이드했다. 그 사이에 Iceberg 모니터링에 직접적으로 도움이 되는 개선 사항이 많았다.
 
-| 버전 | 개선 내용 |
-|------|----------|
-| v455 | `$files` 메타테이블에서 delete file 인식 버그 수정 |
-| v465 | `$files` 메타테이블에 `partition` 필드 추가 |
-| v466 | Glue Catalog 조회 병렬화로 성능 개선 |
-| v469 | `$all_entries` 메타테이블 추가 (Spark의 `all_entries`에 대응) |
-| v470 | `$all_entries` 버그 수정, `optimize_manifests` 프로시저 추가 |
-| v475 | `system.iceberg_tables` 테이블 추가 (Iceberg 테이블만 리스팅) |
+| 버전 | 개선 내용 | 적용 방식 |
+|------|----------|----------|
+| v455 | `$files` 메타테이블에서 delete file 인식 버그 수정 | v451에 체리피킹 |
+| v465 | `$files` 메타테이블에 `partition` 필드 추가 | v451에 체리피킹 |
+| v466 | Glue Catalog 조회 병렬화로 성능 개선 | v476 업그레이드 시 반영 |
+| v469 | `$all_entries` 메타테이블 추가 (Spark의 `all_entries`에 대응) | v476 업그레이드 시 반영 |
+| v470 | `$all_entries` 버그 수정, `optimize_manifests` 프로시저 추가 | v476 업그레이드 시 반영 |
+| v475 | `system.iceberg_tables` 테이블 추가 (Iceberg 테이블만 리스팅) | v476 업그레이드 시 반영 |
 
-v455와 v465의 픽스는 체리피킹으로 먼저 적용했다. 나머지는 버전 업그레이드 시 자연스럽게 반영될 예정이다.
+v455와 v465는 모니터링 구축에 필수적이어서 v451 시절에 체리피킹으로 먼저 적용했다. 나머지는 v476 업그레이드와 함께 자연스럽게 사용 가능해졌다.
 
 ---
 
