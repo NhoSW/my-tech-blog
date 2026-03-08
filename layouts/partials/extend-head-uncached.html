@@ -1,0 +1,7 @@
+{{- /* hreflang tags for multilingual SEO — must be uncached (per-page) */ -}}
+{{- if .IsTranslated -}}
+  {{- range .Translations }}
+  <link rel="alternate" hreflang="{{ .Language.LanguageCode }}" href="{{ .Permalink }}" />
+  {{- end }}
+  <link rel="alternate" hreflang="{{ .Language.LanguageCode }}" href="{{ .Permalink }}" />
+{{- end -}}
